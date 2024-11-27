@@ -13,6 +13,9 @@
             <li>
               <NuxtLink to="/question" class="text-black hover:text-black-600 px-4">Q&A</NuxtLink>
             </li>
+            <li>
+              <NuxtLink to="/news" class="text-black hover:text-black-600 px-4">news</NuxtLink>
+            </li>
           </ul>
         </nav>
       </div>
