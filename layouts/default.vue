@@ -1,13 +1,25 @@
+<!-- 
+  默认布局组件
+  用途：提供全站统一的页面布局结构
+  包含：导航栏、主内容区、页脚
+-->
 <template>
-    <div>
-        <div class="flex flex-col items-center justify-center min-h-screen backdrop-blur-md"
-            :style="{ backgroundImage: 'url(/background.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }">
-            <slot /> <!-- 插入其他内容 -->
-            <CommonNavbar />
-            <CommonFooter />
-        </div>
-    </div>
+  <div>
+    <img src="/background.jpg" class="bg-image" />
+    <CommonNavbar />
+    <slot />
+    <CommonFooter />
+  </div>
 </template>
-<script setup>
 
-</script>
+<style scoped>
+.bg-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  object-fit: cover;
+}
+</style>
