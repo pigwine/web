@@ -1,0 +1,1 @@
+.animate-slide-in[data-v-3d256b0c]{animation:slideIn-3d256b0c .5s ease-out forwards}.animate-check[data-v-3d256b0c]{animation:check-3d256b0c .5s ease-out .2s forwards}@keyframes slideIn-3d256b0c{0%{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}@keyframes check-3d256b0c{0%{transform:scale(0)}70%{transform:scale(1.2)}to{transform:scale(1)}}

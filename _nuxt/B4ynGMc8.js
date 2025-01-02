@@ -1,0 +1,1 @@
+import{_ as o,e as s,f as c,g as t,h as n}from"./DTAhcci9.js";const r={},a={class:"p-8"};function _(d,m){const e=s("CardsDemo1");return n(),c("div",a,[t(e)])}const p=o(r,[["render",_]]);export{p as default};
