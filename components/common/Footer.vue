@@ -4,7 +4,7 @@
             :class="{ 'opacity-0': !showFooter }"
         >
             <div class="flex justify-center space-x-4">
-                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+                <a href="https://x.com/adoma1314" target="_blank" rel="noopener noreferrer">
                     <UIcon name="i-simple-icons-twitter" class="w-6 h-6 opacity-80 hover:opacity-90" />
                 </a>
                 <a href="https://xiaohongshu.com" target="_blank" rel="noopener noreferrer">

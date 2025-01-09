@@ -1,9 +1,8 @@
 <template>
     <div>
         <div class="flex flex-col items-center justify-center h-[calc(100vh-100px)]">
-            <div class="text-center bg-white/10 backdrop-blur-md rounded-xl p-8 shadow-lg">
+            <div class="text-center p-8">
                 <slot />
-               
             </div>
         </div>
     </div>

@@ -1,5 +1,7 @@
 <template>
-    <BoxContainer>
+  
+    
+    <BoxContainer class="mt-[-70px]">
         <BoxDescribe />
         <BoxButton 
             label="立即申请加入"

@@ -7,35 +7,54 @@
           <span class="text-gray-500">Find</span>
         </div>
         
-        <nav>
-          <ul class="flex flex-nowrap text-base md:text-sm sm:text-xs">
+        <nav class="w-full md:w-auto">
+          <ul class="flex justify-center items-center gap-2 text-base md:text-sm">
             <li>
-              <NuxtLink to="/" class="hover:bg-white/30 rounded-full px-4 md:px-2.5 sm:px-1.5 py-2 md:py-1.5 sm:py-1">首页</NuxtLink>
+              <NuxtLink to="/" class="flex items-center hover:bg-white/30 rounded-full px-3 py-2">
+                <span class="hidden sm:inline">首页</span>
+                <span class="sm:hidden nav-icon">🏠</span>
+              </NuxtLink>
             </li>
             <li>
-              <NuxtLink to="/waitlist" class="hover:bg-white/30 rounded-full px-4 md:px-2.5 sm:px-1.5 py-2 md:py-1.5 sm:py-1">预约列表</NuxtLink>
+              <NuxtLink to="/bookgroup" class="flex items-center hover:bg-white/30 rounded-full px-3 py-2">
+                <span class="hidden sm:inline">阅读空间</span>
+                <span class="sm:hidden nav-icon">📚</span>
+              </NuxtLink>
             </li>
             <li>
-              <NuxtLink to="/question" class="hover:bg-white/30 rounded-full px-4 md:px-2.5 sm:px-1.5 py-2 md:py-1.5 sm:py-1">常见问题</NuxtLink>
+              <NuxtLink to="/usefultool" class="flex items-center hover:bg-white/30 rounded-full px-3 py-2">
+                <span class="hidden sm:inline">实用工具</span>
+                <span class="sm:hidden nav-icon">🛠️</span>
+              </NuxtLink>
             </li>
             <li>
-              <NuxtLink to="/news/news" class="hover:bg-white/30 rounded-full px-4 md:px-2.5 sm:px-1.5 py-2 md:py-1.5 sm:py-1">新闻资讯</NuxtLink>
+              <NuxtLink to="/investment" class="flex items-center hover:bg-white/30 rounded-full px-3 py-2">
+                <span class="hidden sm:inline">投资理财</span>
+                <span class="sm:hidden nav-icon">💰</span>
+              </NuxtLink>
             </li>
             <li>
-              <NuxtLink to="/usefultool" class="hover:bg-white/30 rounded-full px-4 md:px-2.5 sm:px-1.5 py-2 md:py-1.5 sm:py-1">实用工具</NuxtLink>
+              <NuxtLink to="/news/news" class="flex items-center hover:bg-white/30 rounded-full px-3 py-2">
+                <span class="hidden sm:inline">新闻资讯</span>
+                <span class="sm:hidden nav-icon">📰</span>
+              </NuxtLink>
+            </li>
+            <li>
+              <NuxtLink to="/question" class="flex items-center hover:bg-white/30 rounded-full px-3 py-2">
+                <span class="hidden sm:inline">常见问题</span>
+                <span class="sm:hidden nav-icon">❓</span>
+              </NuxtLink>
             </li>
           </ul>
         </nav>
 
-        <div class="flex gap-2">
+        <div class="flex gap-2 min-w-max">
           <template v-if="user">
-            <div class="gradient-text px-4 md:px-2.5 sm:px-1.5 py-2 md:py-1.5 sm:py-1">
-              Hello, {{ user.username }}
-            </div>
+            <div class="gradient-text px-3 py-2">Hello, {{ user.username }}</div>
           </template>
           <template v-else>
-            <NuxtLink to="/login" class="hover:bg-white/30 rounded-full px-4 md:px-2.5 sm:px-1.5 py-2 md:py-1.5 sm:py-1">登录</NuxtLink>
-            <NuxtLink to="/register" class="hover:bg-white/30 rounded-full px-4 md:px-2.5 sm:px-1.5 py-2 md:py-1.5 sm:py-1">注册</NuxtLink>
+            <NuxtLink to="/login" class="hover:bg-white/30 rounded-full px-3 py-2">登录</NuxtLink>
+            <NuxtLink to="/register" class="hover:bg-white/30 rounded-full px-3 py-2">注册</NuxtLink>
           </template>
         </div>
       </div>
@@ -108,11 +127,11 @@ button:hover {
 /* 添加导航栏响应式样式 */
 @media (max-width: 640px) {
   nav {
-    margin: 0 -1rem;
+    margin: 0;
   }
   
   nav ul {
-    padding: 0 0.5rem;
+    padding: 0;
   }
 }
 
@@ -122,5 +141,45 @@ button:hover {
   background-clip: text;
   color: transparent;
   font-weight: 600;
+}
+
+/* 添加横向滚动条样式 */
+nav::-webkit-scrollbar {
+  height: 3px;
+}
+
+nav::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+nav::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+nav::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+.nav-icon {
+  display: inline-block;
+  padding: 4px 8px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: all 0.2s ease;
+}
+
+.nav-icon:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 在sm断点以上隐藏图标 */
+@media (min-width: 640px) {
+  .nav-icon {
+    display: none;
+  }
 }
 </style>

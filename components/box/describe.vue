@@ -1,19 +1,53 @@
 <template>
   <div>
-    <h1 class="text-5xl font-bold mb-4">Coming Soon!</h1>
-    <p class="text-xl mb-8">kaima的独立开发站 🛫</p>
-    <p class="text-base mb-4">🚀 重磅消息！我们即将推出升级超级有趣又实用的产品，绝对让你爱不释手！</p>
-    <p class="text-base mb-4">😍 超级栏目</p>
-    <p class="text-base mb-4">🎉 搜罗天下第一手搞钱咨询</p>
-    <p class="text-base mb-4">✨ 点击下方按钮获取订阅</p>
-
     
+    <div class="space-y-6">
+      <!-- 阅读空间 -->
+      <NuxtLink to="/bookgroup" class="block mb-6 hover:transform hover:scale-105 transition-transform">
+        <div class="cursor-pointer p-6 border border-gray-200 rounded-lg hover:border-blue-500 hover:shadow-md transition-all">
+          <h2 class="text-2xl font-bold mb-3">📚 阅读空间</h2>
+          <p class="text-base text-gray-600">精选好书推荐，分享读书心得与方法</p>
+        </div>
+      </NuxtLink>
+
+      <!-- 效率工具 -->
+      <NuxtLink to="/usefultool" class="block mb-6 hover:transform hover:scale-105 transition-transform">
+        <div class="cursor-pointer p-6 border border-gray-200 rounded-lg hover:border-blue-500 hover:shadow-md transition-all">
+          <h2 class="text-2xl font-bold mb-3">🛠️ 效率工具</h2>
+          <p class="text-base text-gray-600">发掘实用工具，提升学习与工作效率</p>
+        </div>
+      </NuxtLink>
+
+      <!-- 投资理财 -->
+      <NuxtLink to="/investment" class="block mb-6 hover:transform hover:scale-105 transition-transform">
+        <div class="cursor-pointer p-6 border border-gray-200 rounded-lg hover:border-blue-500 hover:shadow-md transition-all">
+          <h2 class="text-2xl font-bold mb-3">💰 投资理财</h2>
+          <p class="text-base text-gray-600">分享投资知识，探讨财富增长之道</p>
+        </div>
+      </NuxtLink>
+    
+    </div>
+    <div class="mt-8 text-sm text-gray-500">
+      <p>🌟 持续更新中，欢迎关注！</p>
+      <p>✨ 终身学习，不断成长</p>
+    </div>
   </div>
 </template>
 
 <script setup>
-
 </script>
 
 <style scoped>
+.text-gray-600 {
+  transition: colors 300ms;
+}
+
+.mb-6:hover .text-gray-600 {
+  color: rgb(37 99 235); /* blue-600 颜色 */
+}
+
+h1 {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  letter-spacing: -0.5px;
+}
 </style>

@@ -4,10 +4,12 @@
   包含：导航栏、主内容区、页脚
 -->
 <template>
-  <div>
-    <img src="/background.jpg" class="bg-image" />
+  <div class="min-h-screen flex flex-col">
     <CommonNavbar />
-    <slot />
+    <!-- 主内容区域 -->
+    <main class="flex-grow flex items-center justify-center pt-12">
+      <slot />
+    </main>
     <CommonFooter />
   </div>
 </template>
