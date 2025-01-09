@@ -4,25 +4,25 @@
     <div class="space-y-6">
       <!-- 阅读空间 -->
       <NuxtLink to="/bookgroup" class="block mb-6 hover:transform hover:scale-105 transition-transform">
-        <div class="cursor-pointer p-6 border border-gray-200 rounded-lg hover:border-blue-500 hover:shadow-md transition-all">
-          <h2 class="text-2xl font-bold mb-3">📚 阅读空间</h2>
-          <p class="text-base text-gray-600">精选好书推荐，分享读书心得与方法</p>
+        <div class="cursor-pointer p-6 border border-gray-200 rounded-lg hover:border-blue-500 hover:shadow-md transition-all bg-white">
+          <h2 class="text-2xl font-bold mb-3 text-gray-900">📚 阅读空间</h2>
+          <p class="text-base text-gray-900">精选好书推荐，分享读书心得与方法</p>
         </div>
       </NuxtLink>
 
       <!-- 效率工具 -->
       <NuxtLink to="/usefultool" class="block mb-6 hover:transform hover:scale-105 transition-transform">
-        <div class="cursor-pointer p-6 border border-gray-200 rounded-lg hover:border-blue-500 hover:shadow-md transition-all">
-          <h2 class="text-2xl font-bold mb-3">🛠️ 效率工具</h2>
-          <p class="text-base text-gray-600">发掘实用工具，提升学习与工作效率</p>
+        <div class="cursor-pointer p-6 border border-gray-200 rounded-lg hover:border-blue-500 hover:shadow-md transition-all bg-white">
+          <h2 class="text-2xl font-bold mb-3 text-gray-900">🛠️ 效率工具</h2>
+          <p class="text-base text-gray-900">发掘实用工具，提升学习与工作效率</p>
         </div>
       </NuxtLink>
 
       <!-- 投资理财 -->
       <NuxtLink to="/investment" class="block mb-6 hover:transform hover:scale-105 transition-transform">
-        <div class="cursor-pointer p-6 border border-gray-200 rounded-lg hover:border-blue-500 hover:shadow-md transition-all">
-          <h2 class="text-2xl font-bold mb-3">💰 投资理财</h2>
-          <p class="text-base text-gray-600">分享投资知识，探讨财富增长之道</p>
+        <div class="cursor-pointer p-6 border border-gray-200 rounded-lg hover:border-blue-500 hover:shadow-md transition-all bg-white">
+          <h2 class="text-2xl font-bold mb-3 text-gray-900">💰 投资理财</h2>
+          <p class="text-base text-gray-900">分享投资知识，探讨财富增长之道</p>
         </div>
       </NuxtLink>
     

@@ -13,6 +13,9 @@
                 <a href="https://weixin.qq.com" target="_blank" rel="noopener noreferrer">
                     <UIcon name="i-simple-icons-wechat" class="w-6 h-6 opacity-80 hover:opacity-90" />
                 </a>
+                <a href="https://discord.gg/你的邀请链接" target="_blank" rel="noopener noreferrer">
+                    <UIcon name="i-simple-icons-discord" class="w-6 h-6 opacity-80 hover:opacity-90" />
+                </a>
             </div>
             <div class="text-sm mt-2">
                 Copyright © 2024 Kiama. All Rights Reserved.

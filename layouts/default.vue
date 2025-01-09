@@ -4,7 +4,7 @@
   包含：导航栏、主内容区、页脚
 -->
 <template>
-  <div class="min-h-screen flex flex-col">
+  <div class="min-h-screen flex flex-col bg-white dark:bg-gray-100">
     <CommonNavbar />
     <!-- 主内容区域 -->
     <main class="flex-grow flex items-center justify-center pt-12">

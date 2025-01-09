@@ -1,6 +1,6 @@
 <template>  
-    <div class="min-h-screen flex flex-col">
-        <div class="min-h-screen flex flex-col fixed w-full h-full">
+    <div class="min-h-screen flex flex-col bg-white dark:bg-gray-100">
+        <div class="min-h-screen flex flex-col fixed w-full h-full bg-white dark:bg-gray-100">
         </div>
         <div class="min-h-screen flex flex-col relative z-10">
             <CommonNavbar />

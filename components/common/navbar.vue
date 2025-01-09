@@ -8,41 +8,11 @@
         </div>
         
         <nav class="w-full md:w-auto">
-          <ul class="flex justify-center items-center gap-2 text-base md:text-sm">
-            <li>
-              <NuxtLink to="/" class="flex items-center hover:bg-white/30 rounded-full px-3 py-2">
-                <span class="hidden sm:inline">首页</span>
-                <span class="sm:hidden nav-icon">🏠</span>
-              </NuxtLink>
-            </li>
-            <li>
-              <NuxtLink to="/bookgroup" class="flex items-center hover:bg-white/30 rounded-full px-3 py-2">
-                <span class="hidden sm:inline">阅读空间</span>
-                <span class="sm:hidden nav-icon">📚</span>
-              </NuxtLink>
-            </li>
-            <li>
-              <NuxtLink to="/usefultool" class="flex items-center hover:bg-white/30 rounded-full px-3 py-2">
-                <span class="hidden sm:inline">实用工具</span>
-                <span class="sm:hidden nav-icon">🛠️</span>
-              </NuxtLink>
-            </li>
-            <li>
-              <NuxtLink to="/investment" class="flex items-center hover:bg-white/30 rounded-full px-3 py-2">
-                <span class="hidden sm:inline">投资理财</span>
-                <span class="sm:hidden nav-icon">💰</span>
-              </NuxtLink>
-            </li>
-            <li>
-              <NuxtLink to="/news/news" class="flex items-center hover:bg-white/30 rounded-full px-3 py-2">
-                <span class="hidden sm:inline">新闻资讯</span>
-                <span class="sm:hidden nav-icon">📰</span>
-              </NuxtLink>
-            </li>
-            <li>
-              <NuxtLink to="/question" class="flex items-center hover:bg-white/30 rounded-full px-3 py-2">
-                <span class="hidden sm:inline">常见问题</span>
-                <span class="sm:hidden nav-icon">❓</span>
+          <ul class="flex justify-center items-center gap-1 text-base md:text-sm">
+            <li v-for="(item, index) in navItems" :key="index" class="flex-shrink">
+              <NuxtLink :to="item.path" class="flex items-center hover:bg-white/30 rounded-full px-1 py-1">
+                <span v-if="!isMobile" class="nav-text">{{ item.text }}</span>
+                <span v-else class="nav-icon">{{ item.icon }}</span>
               </NuxtLink>
             </li>
           </ul>
@@ -53,8 +23,8 @@
             <div class="gradient-text px-3 py-2">Hello, {{ user.username }}</div>
           </template>
           <template v-else>
-            <NuxtLink to="/login" class="hover:bg-white/30 rounded-full px-3 py-2">登录</NuxtLink>
-            <NuxtLink to="/register" class="hover:bg-white/30 rounded-full px-3 py-2">注册</NuxtLink>
+            <NuxtLink to="/login" class="hover:bg-white/30 rounded-full px-3 py-2 text-gray-800">登录</NuxtLink>
+            <NuxtLink to="/register" class="hover:bg-white/30 rounded-full px-3 py-2 text-gray-800">注册</NuxtLink>
           </template>
         </div>
       </div>
@@ -77,6 +47,15 @@ import { ref, onMounted, onUnmounted } from 'vue'
 
 const showBackToTop = ref(false)
 const user = ref(null)
+const isMobile = ref(false)
+const navItems = [
+  { path: '/', text: '首页', icon: '🏠' },
+  { path: '/bookgroup', text: '阅读空间', icon: '📚' },
+  { path: '/usefultool', text: '实用工具', icon: '🛠️' },
+  { path: '/investment', text: '投资理财', icon: '💰' },
+  { path: '/news/news', text: '新闻资讯', icon: '📰' },
+  { path: '/question', text: '常见问题', icon: '❓' }
+]
 
 const handleScroll = () => {
   showBackToTop.value = window.scrollY > 300 // 滚动超过300px时显示按钮
@@ -89,13 +68,24 @@ const scrollToTop = () => {
   })
 }
 
+const checkDevice = () => {
+  // 检查是否是移动设备
+  const userAgent = navigator.userAgent || navigator.vendor || window.opera
+  const mobileRegex = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i
+  isMobile.value = mobileRegex.test(userAgent.toLowerCase())
+}
+
 // 添加和移除滚动事件监听器
 onMounted(() => {
   window.addEventListener('scroll', handleScroll)
+  checkDevice()
+  // 监听窗口大小变化，以处理平板等设备的旋转
+  window.addEventListener('resize', checkDevice)
 })
 
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
+  window.removeEventListener('resize', checkDevice)
 })
 
 // 在组件挂载时获取用户信息
@@ -115,24 +105,27 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-button {
-  opacity: 0.8;
+.nav-icon, .nav-text {
+  display: inline-block;
+  padding: 1px 4px;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.8);
+  transition: all 0.2s ease;
+  color: #1f2937;
+  font-size: 0.85em;
+  min-width: 24px;
+  text-align: center;
 }
 
-button:hover {
-  opacity: 1;
-  transform: translateY(-2px);
+.nav-icon {
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
-/* 添加导航栏响应式样式 */
-@media (max-width: 640px) {
-  nav {
-    margin: 0;
-  }
-  
-  nav ul {
-    padding: 0;
-  }
+.nav-icon:hover, .nav-text:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .gradient-text {
@@ -143,43 +136,14 @@ button:hover {
   font-weight: 600;
 }
 
-/* 添加横向滚动条样式 */
-nav::-webkit-scrollbar {
-  height: 3px;
-}
-
-nav::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-nav::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 3px;
-}
-
-nav::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
-}
-
-.nav-icon {
-  display: inline-block;
-  padding: 4px 8px;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  background-color: rgba(255, 255, 255, 0.1);
-  transition: all 0.2s ease;
-}
-
-.nav-icon:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-  transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* 在sm断点以上隐藏图标 */
-@media (min-width: 640px) {
-  .nav-icon {
-    display: none;
+/* 添加导航栏响应式样式 */
+@media (max-width: 640px) {
+  nav {
+    margin: 0;
+  }
+  
+  nav ul {
+    padding: 0;
   }
 }
 </style>
