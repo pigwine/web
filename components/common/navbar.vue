@@ -17,16 +17,6 @@
             </li>
           </ul>
         </nav>
-
-        <div class="flex gap-2 min-w-max">
-          <template v-if="user">
-            <div class="gradient-text px-3 py-2">Hello, {{ user.username }}</div>
-          </template>
-          <template v-else>
-            <NuxtLink to="/login" class="hover:bg-white/30 rounded-full px-3 py-2 text-gray-800">登录</NuxtLink>
-            <NuxtLink to="/register" class="hover:bg-white/30 rounded-full px-3 py-2 text-gray-800">注册</NuxtLink>
-          </template>
-        </div>
       </div>
     </header>
 
@@ -46,7 +36,6 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 
 const showBackToTop = ref(false)
-const user = ref(null)
 const isMobile = ref(false)
 const navItems = [
   { path: '/', text: '首页', icon: '🏠' },
@@ -87,26 +76,13 @@ onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
   window.removeEventListener('resize', checkDevice)
 })
-
-// 在组件挂载时获取用户信息
-onMounted(async () => {
-  // 这里需要根据你的认证系统来获取用户信息
-  // 例如：
-  try {
-    const token = localStorage.getItem('token') // 或者从你的认证系统获取token
-    if (token) {
-      // 从你的API获取用户信息
-      // user.value = await fetchUserInfo()
-    }
-  } catch (error) {
-    console.error('Error fetching user info:', error)
-  }
-})
 </script>
 
 <style scoped>
 .nav-icon, .nav-text {
-  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 1px 4px;
   border: 1px solid #e2e8f0;
   border-radius: 4px;
@@ -116,6 +92,8 @@ onMounted(async () => {
   font-size: 0.85em;
   min-width: 24px;
   text-align: center;
+  height: 28px;
+  min-width: 60px;
 }
 
 .nav-icon {
