@@ -5,5 +5,6 @@ export default defineNuxtConfig({
   modules: ['@nuxt/ui', '@nuxt/content', '@nuxtjs/tailwindcss', 'nuxt-icon'],
   app: {
     pageTransition: { name: 'page', mode: 'out-in' }
-  }
+  },
+  
 })

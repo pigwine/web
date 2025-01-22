@@ -8,12 +8,12 @@
   -->
   <template>
     <main>
-      <ContentDoc>
+      <ContentDoc v-if="isContentRoute">
         <template v-slot:not-found>
           <NuxtErrorBoundary>
             <error-component :error="{
               statusCode: 404,
-              message: '页面未找到'
+              message: '内容未找到'
             }" />
           </NuxtErrorBoundary>
         </template>
@@ -26,13 +26,25 @@
 
   <script setup>
   import { useRouter } from '#app'
-  const router = useRouter()
+  import { useRoute } from 'vue-router'
+  import { computed } from 'vue'
 
-  // 检查路由是否存在于pages目录中
+  const router = useRouter()
   const route = useRoute()
+
+  // 定义不需要内容处理的路由
+  const excludeRoutes = ['/login', '/register']
+
+  // 判断是否是内容路由
+  const isContentRoute = computed(() => {
+    return !excludeRoutes.includes(route.path)
+  })
+
+  // 检查路由是否存在
   const pageExists = router.hasRoute(route.path)
 
-  if (!pageExists) {
+  // 如果路由不存在且不是内容路由，抛出404错误
+  if (!pageExists && !isContentRoute.value) {
     throw createError({
       statusCode: 404,
       message: '页面未找到'

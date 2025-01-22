@@ -1,22 +1,26 @@
 <template>
   <div>
     <header class="static w-full relative z-10">
-      <div class="container mx-auto flex flex-col md:flex-row justify-between items-center p-4 gap-4">
+      <div class="container mx-auto flex flex-col md:flex-row items-center p-4 gap-4">
         <div class="text-2xl md:text-xl sm:text-lg tracking-tight font-sans">
           <span class="font-bold text-gray-800">Kaima</span>
           <span class="text-gray-500">Find</span>
         </div>
         
-        <nav class="w-full md:w-auto">
-          <ul class="flex justify-center items-center gap-1 text-base md:text-sm">
-            <li v-for="(item, index) in navItems" :key="index" class="flex-shrink">
-              <NuxtLink :to="item.path" class="flex items-center hover:bg-white/30 rounded-full px-1 py-1">
-                <span v-if="!isMobile" class="nav-text">{{ item.text }}</span>
-                <span v-else class="nav-icon">{{ item.icon }}</span>
-              </NuxtLink>
-            </li>
-          </ul>
-        </nav>
+        <div class="flex-grow flex justify-center">
+          <nav class="w-auto">
+            <ul class="flex justify-center items-center gap-1 text-base md:text-sm">
+              <li v-for="(item, index) in navItems" :key="index" class="flex-shrink">
+                <NuxtLink :to="item.path" class="flex items-center hover:bg-white/30 rounded-full px-1 py-1">
+                  <span v-if="!isMobile" class="nav-text">{{ item.text }}</span>
+                  <span v-else class="nav-icon">{{ item.icon }}</span>
+                </NuxtLink>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        
+        <div class="w-[120px] md:block hidden"></div>
       </div>
     </header>
 

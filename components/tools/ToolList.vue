@@ -6,10 +6,10 @@
       <!-- 搜索框容器 -->
       <div class="w-full min-w-[300px] max-w-xl relative search-container mx-auto">
         <input
-          v-model="searchQuery"
+          v-model="searchInput"
           type="text"
           placeholder="点击搜索"
-          class="w-full px-4 py-2 pl-10 bg-white/80 backdrop-blur-sm rounded-lg border border-gray-200/50 focus:border-blue-500/50 focus:ring-2 focus:ring-blue-200/50 transition-all duration-300"
+          class="w-full px-4 py-2 pl-10 pr-16 bg-white/80 backdrop-blur-sm rounded-lg border border-gray-200/50 focus:border-blue-500/50 focus:ring-2 focus:ring-blue-200/50 transition-all duration-300"
           @click.stop="toggleTagSelector"
         />
         <svg
@@ -25,6 +25,14 @@
             d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
           />
         </svg>
+        
+        <!-- 搜索按钮 - 调整样式使其更紧凑 -->
+        <button
+          @click="handleSearch"
+          class="absolute right-1.5 top-1/2 transform -translate-y-1/2 px-3 py-1.5 bg-blue-500 text-white text-sm rounded-md hover:bg-blue-600 transition-colors"
+        >
+          搜索
+        </button>
 
         <!-- 热门标签容器 - 添加最小宽度 -->
         <div
@@ -198,6 +206,7 @@ const { data: tools } = await useAsyncData('tools', () =>
   queryContent('tools').find()
 )
 
+const searchInput = ref('')
 const searchQuery = ref('')
 const selectedTags = ref([])
 const showTagSelector = ref(false)
@@ -253,9 +262,10 @@ const removeTag = (tag) => {
 }
 
 // 修改搜索监听，只处理搜索逻辑
-watch(searchQuery, (newValue) => {
-  // 只在这里处理搜索逻辑
-  currentPage.value = 1
+watch(searchInput, (newValue) => {
+  if (!newValue) {
+    searchQuery.value = ''
+  }
 })
 
 // 改进的搜索过滤功能
@@ -301,7 +311,7 @@ const paginatedTools = computed(() => {
 })
 
 // 监听筛选条件变化，重置页码
-watch([searchQuery, selectedTags], () => {
+watch([searchInput, selectedTags], () => {
   currentPage.value = 1
 })
 
@@ -403,6 +413,10 @@ const selectTag = (tag) => {
   if (!selectedTags.value.includes(tag)) {
     selectedTags.value.push(tag)
   }
+}
+
+const handleSearch = () => {
+  searchQuery.value = searchInput.value
 }
 </script>
 
