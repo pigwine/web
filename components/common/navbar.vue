@@ -46,8 +46,9 @@ const navItems = [
   { path: '/bookgroup', text: '阅读空间', icon: '📚' },
   { path: '/usefultool', text: '实用工具', icon: '🛠️' },
   { path: '/investment', text: '投资理财', icon: '💰' },
+  { path: '/usefulthings', text: '实用好物', icon: '🎁' },
   { path: '/news/news', text: '新闻资讯', icon: '📰' },
-  { path: '/question', text: '常见问题', icon: '❓' }
+  { path: '/aboutlove', text: '对于爱', icon: '💝' }
 ]
 
 const handleScroll = () => {

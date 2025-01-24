@@ -17,6 +17,41 @@
                         <span class="transform transition-transform" :class="{ 'rotate-180': showQDII }">▼</span>
                     </button>
                     <div v-show="showQDII" class="px-6 py-4 border-t">
+                        <!-- QDII资金流向图 -->
+                        <div class="mb-8">
+                            <div class="font-medium mb-3">资金流向：</div>
+                            <div class="p-0">
+                                <svg class="w-full" viewBox="0 0 1000 240">
+                                    <defs>
+                                        <marker id="arrowhead" markerWidth="12" markerHeight="8" refX="11" refY="4" orient="auto">
+                                            <polygon points="0 0, 12 4, 0 8" fill="#6B7280"/>
+                                        </marker>
+                                    </defs>
+                                    <g fill="none" stroke="#6B7280" stroke-width="2">
+                                        <!-- 调整矩形框位置，使其与文本对齐 -->
+                                        <rect x="0" y="40" width="250" height="100" rx="8" fill="white" class="shadow-sm" stroke="#E5E7EB"/>
+                                        <rect x="375" y="40" width="250" height="100" rx="8" fill="white" class="shadow-sm" stroke="#E5E7EB"/>
+                                        <rect x="750" y="40" width="250" height="100" rx="8" fill="white" class="shadow-sm" stroke="#E5E7EB"/>
+                                        
+                                        <!-- 调整连接箭头 -->
+                                        <line x1="250" y1="90" x2="375" y2="90" stroke-width="3" marker-end="url(#arrowhead)"/>
+                                        <line x1="625" y1="90" x2="750" y2="90" stroke-width="3" marker-end="url(#arrowhead)"/>
+                                    </g>
+                                    
+                                    <!-- 调整文字位置 -->
+                                    <g fill="#374151" font-size="22" font-weight="500">
+                                        <text x="125" y="100" text-anchor="middle" dominant-baseline="middle">支付宝/微信</text>
+                                        <text x="500" y="100" text-anchor="middle" dominant-baseline="middle">基金账户</text>
+                                        <text x="875" y="100" text-anchor="middle" dominant-baseline="middle">QDII基金</text>
+                                    </g>
+                                </svg>
+                            </div>
+                            <div class="mt-4 text-sm text-gray-600 space-y-2">
+                                <div>• 基金账户：天天基金、蚂蚁财富、各大券商APP（华泰、中信等）</div>
+                                <div>• QDII基金：易方达标普科技、华夏纳斯达克100等主流QDII基金</div>
+                            </div>
+                        </div>
+                        
                         <div v-for="(section, index) in qdiiSections" :key="index" class="space-y-2 mb-4">
                             <div class="font-medium">{{ section.title }}：</div>
                             <ul class="text-sm space-y-1 text-gray-600">
@@ -41,6 +76,42 @@
                         <span class="transform transition-transform" :class="{ 'rotate-180': showHK }">▼</span>
                     </button>
                     <div v-show="showHK" class="px-6 py-4 border-t">
+                        <!-- 港股通资金流向图 -->
+                        <div class="mb-8">
+                            <div class="font-medium mb-3">资金流向：</div>
+                            <div class="p-0">
+                                <svg class="w-full" viewBox="0 0 1000 240">
+                                    <defs>
+                                        <marker id="arrowhead2" markerWidth="12" markerHeight="8" refX="11" refY="4" orient="auto">
+                                            <polygon points="0 0, 12 4, 0 8" fill="#6B7280"/>
+                                        </marker>
+                                    </defs>
+                                    <g fill="none" stroke="#6B7280" stroke-width="2">
+                                        <rect x="0" y="40" width="200" height="100" rx="8" fill="white" class="shadow-sm" stroke="#E5E7EB"/>
+                                        <rect x="266" y="40" width="200" height="100" rx="8" fill="white" class="shadow-sm" stroke="#E5E7EB"/>
+                                        <rect x="533" y="40" width="200" height="100" rx="8" fill="white" class="shadow-sm" stroke="#E5E7EB"/>
+                                        <rect x="800" y="40" width="200" height="100" rx="8" fill="white" class="shadow-sm" stroke="#E5E7EB"/>
+                                        
+                                        <line x1="200" y1="90" x2="266" y2="90" stroke-width="3" marker-end="url(#arrowhead2)"/>
+                                        <line x1="466" y1="90" x2="533" y2="90" stroke-width="3" marker-end="url(#arrowhead2)"/>
+                                        <line x1="733" y1="90" x2="800" y2="90" stroke-width="3" marker-end="url(#arrowhead2)"/>
+                                    </g>
+                                    
+                                    <g fill="#374151" font-size="22" font-weight="500">
+                                        <text x="100" y="100" text-anchor="middle" dominant-baseline="middle">支付宝/微信</text>
+                                        <text x="366" y="100" text-anchor="middle" dominant-baseline="middle">证券账户</text>
+                                        <text x="633" y="100" text-anchor="middle" dominant-baseline="middle">换汇通道</text>
+                                        <text x="900" y="100" text-anchor="middle" dominant-baseline="middle">港股市场</text>
+                                    </g>
+                                </svg>
+                            </div>
+                            <div class="mt-4 text-sm text-gray-600 space-y-2">
+                                <div>• 证券账户：国内主流券商（中信、华泰、招商等）</div>
+                                <div>• 换汇通道：券商提供的港股通专用换汇服务</div>
+                                <div>• 港股市场：港交所上市公司股票（腾讯、阿里、美团等）</div>
+                            </div>
+                        </div>
+
                         <div v-for="(section, index) in hkSections" :key="index" class="space-y-2 mb-4">
                             <div class="font-medium">{{ section.title }}：</div>
                             <ul class="text-sm space-y-1 text-gray-600">
@@ -65,6 +136,42 @@
                         <span class="transform transition-transform" :class="{ 'rotate-180': showOffshore }">▼</span>
                     </button>
                     <div v-show="showOffshore" class="px-6 py-4 border-t">
+                        <!-- 离岸账户资金流向图 -->
+                        <div class="mb-8">
+                            <div class="font-medium mb-3">资金流向：</div>
+                            <div class="p-0">
+                                <svg class="w-full" viewBox="0 0 1000 340">
+                                    <defs>
+                                        <marker id="arrowhead3" markerWidth="12" markerHeight="8" refX="11" refY="4" orient="auto">
+                                            <polygon points="0 0, 12 4, 0 8" fill="#6B7280"/>
+                                        </marker>
+                                    </defs>
+                                    <g fill="none" stroke="#6B7280" stroke-width="2">
+                                        <rect x="0" y="40" width="250" height="100" rx="8" fill="white" class="shadow-sm" stroke="#E5E7EB"/>
+                                        <rect x="375" y="40" width="250" height="100" rx="8" fill="white" class="shadow-sm" stroke="#E5E7EB"/>
+                                        <rect x="750" y="40" width="250" height="100" rx="8" fill="white" class="shadow-sm" stroke="#E5E7EB"/>
+                                        <rect x="525" y="200" width="250" height="100" rx="8" fill="white" class="shadow-sm" stroke="#E5E7EB"/>
+                                        
+                                        <line x1="250" y1="90" x2="375" y2="90" stroke-width="3" marker-end="url(#arrowhead3)"/>
+                                        <line x1="625" y1="90" x2="750" y2="90" stroke-width="3" marker-end="url(#arrowhead3)"/>
+                                        <line x1="875" y1="140" x2="775" y2="200" stroke-width="3" marker-end="url(#arrowhead3)"/>
+                                    </g>
+                                    
+                                    <g fill="#374151" font-size="22" font-weight="500">
+                                        <text x="125" y="100" text-anchor="middle" dominant-baseline="middle">支付宝/微信</text>
+                                        <text x="500" y="100" text-anchor="middle" dominant-baseline="middle">换汇通道</text>
+                                        <text x="875" y="100" text-anchor="middle" dominant-baseline="middle">离岸账户</text>
+                                        <text x="650" y="260" text-anchor="middle" dominant-baseline="middle">全球投资</text>
+                                    </g>
+                                </svg>
+                            </div>
+                            <div class="mt-4 text-sm text-gray-600 space-y-2">
+                                <div>• 换汇通道：汇丰银行、渣打银行等国际银行的换汇服务</div>
+                                <div>• 离岸账户：香港/新加坡等地区的银行（如汇丰香港、星展银行等）</div>
+                                <div>• 全球投资：国际券商（如富途、老虎证券）、境外基金平台等</div>
+                            </div>
+                        </div>
+
                         <div class="space-y-3">
                             <!-- 基本说明 -->
                             <div class="space-y-2">

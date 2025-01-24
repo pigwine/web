@@ -25,6 +25,14 @@
           <p class="text-base text-gray-900">分享投资知识，探讨财富增长之道</p>
         </div>
       </NuxtLink>
+
+      <!-- 实用好物 -->
+      <NuxtLink to="/usefulthings" class="block mb-6 hover:transform hover:scale-105 transition-transform">
+        <div class="cursor-pointer p-6 border border-gray-200 rounded-lg hover:border-blue-500 hover:shadow-md transition-all bg-white">
+          <h2 class="text-2xl font-bold mb-3 text-gray-900">🎁 实用好物</h2>
+          <p class="text-base text-gray-900">分享不一样的路子货，学会更好活</p>
+        </div>
+      </NuxtLink>
     
     </div>
     <div class="mt-8 text-sm text-gray-500">
