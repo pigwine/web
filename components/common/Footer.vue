@@ -18,7 +18,7 @@
                 </a>
             </div>
             <div class="text-sm mt-2 text-black">
-                Copyright © 2024 Kiama. All Rights Reserved.
+                Copyright © 2025 Kiama. 
             </div>
         </footer>
 </template>

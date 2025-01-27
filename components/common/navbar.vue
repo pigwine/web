@@ -47,8 +47,7 @@ const navItems = [
   { path: '/usefultool', text: '实用工具', icon: '🛠️' },
   { path: '/investment', text: '投资理财', icon: '💰' },
   { path: '/usefulthings', text: '实用好物', icon: '🎁' },
-  { path: '/news/news', text: '新闻资讯', icon: '📰' },
-  { path: '/aboutlove', text: '对于爱', icon: '💝' }
+  { path: '/news/news', text: '新闻资讯', icon: '📰' }
 ]
 
 const handleScroll = () => {
