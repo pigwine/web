@@ -20,7 +20,35 @@
           </nav>
         </div>
         
-        <div class="w-[120px] md:block hidden"></div>
+        <!-- 用户状态区域 -->
+        <div class="w-[120px] md:block flex items-center gap-2">
+          <template v-if="user">
+            <div class="flex items-center gap-2">
+              <span class="text-sm text-gray-600 truncate max-w-[100px]">{{ user.email }}</span>
+              <button
+                @click="handleLogout"
+                :disabled="loading"
+                class="nav-text hover:bg-red-50 hover:text-red-500"
+              >
+                {{ loading ? '退出中...' : '退出' }}
+              </button>
+            </div>
+          </template>
+          <template v-else>
+            <NuxtLink
+              to="/login"
+              class="nav-text hover:bg-blue-50 hover:text-blue-500"
+            >
+              登录
+            </NuxtLink>
+            <NuxtLink
+              to="/register"
+              class="nav-text hover:bg-green-50 hover:text-green-500"
+            >
+              注册
+            </NuxtLink>
+          </template>
+        </div>
       </div>
     </header>
 
@@ -39,8 +67,14 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 
+const { $supabase } = useNuxtApp()
+const router = useRouter()
+
 const showBackToTop = ref(false)
 const isMobile = ref(false)
+const user = ref(null)
+const loading = ref(false)
+
 const navItems = [
   { path: '/', text: '首页', icon: '🏠' },
   { path: '/bookgroup', text: '阅读空间', icon: '📚' },
@@ -50,8 +84,36 @@ const navItems = [
   { path: '/news/news', text: '新闻资讯', icon: '📰' }
 ]
 
+// 获取当前用户
+const getUser = async () => {
+  try {
+    const { data: { user: currentUser } } = await $supabase.auth.getUser()
+    user.value = currentUser
+  } catch (error) {
+    console.error('获取用户信息失败:', error)
+  }
+}
+
+// 处理退出
+const handleLogout = async () => {
+  if (loading.value) return
+  
+  loading.value = true
+  try {
+    const { error } = await $supabase.auth.signOut()
+    if (error) throw error
+    
+    user.value = null
+    router.push('/login')
+  } catch (error) {
+    console.error('退出失败:', error)
+  } finally {
+    loading.value = false
+  }
+}
+
 const handleScroll = () => {
-  showBackToTop.value = window.scrollY > 300 // 滚动超过300px时显示按钮
+  showBackToTop.value = window.scrollY > 300
 }
 
 const scrollToTop = () => {
@@ -62,18 +124,21 @@ const scrollToTop = () => {
 }
 
 const checkDevice = () => {
-  // 检查是否是移动设备
   const userAgent = navigator.userAgent || navigator.vendor || window.opera
   const mobileRegex = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i
   isMobile.value = mobileRegex.test(userAgent.toLowerCase())
 }
 
-// 添加和移除滚动事件监听器
+// 监听认证状态变化
+$supabase.auth.onAuthStateChange((event, session) => {
+  user.value = session?.user || null
+})
+
 onMounted(() => {
   window.addEventListener('scroll', handleScroll)
   checkDevice()
-  // 监听窗口大小变化，以处理平板等设备的旋转
   window.addEventListener('resize', checkDevice)
+  getUser() // 获取初始用户状态
 })
 
 onUnmounted(() => {
