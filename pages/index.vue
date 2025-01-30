@@ -1,20 +1,9 @@
 <template>
-  
-    
-    <BoxContainer class="mt-[-70px]">
-        <BoxDescribe />
-        <BoxButton 
-            label="立即申请加入"
-            description="点击按钮加入等待名单"
-            buttonClass="bg-green-500 hover:bg-green-600"
-            @click="handleClick"
-        />
-    </BoxContainer>
-    
+  <BoxContainer class="mt-[-70px]">
+    <BoxDescribe />
+  </BoxContainer>
 </template>
 
 <script setup>
-const handleClick = () => {
-    navigateTo('/waitlist')
-}
+// 移除了 handleClick 函数，因为不再需要
 </script>
