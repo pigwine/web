@@ -220,8 +220,43 @@
                 </div>
             </div>
 
-            <!-- 重要提示 -->
+            <!-- 投资路径列表后，重要提示前 -->
             <div class="bg-white/80 rounded-lg p-6 shadow-sm mt-8">
+                <!-- 添加参考文档链接和滚动按钮 -->
+                <div class="mb-8 space-y-4">
+                    <a 
+                        href="https://www.hsbc.com.hk/content/dam/hsbc/hk/docs/international/remoteeep-guidance.pdf"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="inline-block px-4 py-2 border border-gray-900 rounded-lg text-sm text-gray-900 hover:bg-gray-50 transition-colors duration-200"
+                    >
+                        HSBC 香港远程开户指南 →
+                    </a>
+                    <div class="relative">
+                        <!-- 按钮 -->
+                        <button 
+                            @click="toggleQRCode"
+                            class="block px-4 py-2 text-sm text-gray-600 hover:text-gray-900 transition-colors duration-200"
+                        >
+                            联系获取帮助 {{ showQRCode ? '↑' : '↓' }}
+                        </button>
+                        
+                        <!-- 二维码浮层 -->
+                        <div 
+                            v-if="showQRCode"
+                            class="fixed left-[300px] top-[10%] z-50"
+                            @click="toggleQRCode"
+                        >
+                            <img 
+                                src="/wechat-qr2.jpg" 
+                                alt="微信二维码" 
+                                class="w-[160px] h-[160px] object-contain"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 原有的重要提示部分 -->
                 <h2 class="text-xl font-bold mb-4">重要提示</h2>
                 <div class="space-y-4">
                     <div class="space-y-2">
@@ -253,6 +288,7 @@ import { ref } from 'vue'
 const showQDII = ref(false)
 const showHK = ref(false)
 const showOffshore = ref(false)
+const showQRCode = ref(false)
 
 // QDII基金路径内容
 const qdiiSections = [
@@ -381,4 +417,24 @@ const offshoreSections = [
         ]
     }
 ]
+
+const toggleQRCode = () => {
+    showQRCode.value = !showQRCode.value
+}
 </script>
+
+<style scoped>
+/* 添加淡入淡出动画 */
+.fixed {
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+</style>

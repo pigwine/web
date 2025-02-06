@@ -78,7 +78,20 @@
 3. 优化加载性能
 4. 添加更多实用工具
 
-1/30/2024: 优化了登录注册界面
+1/30/2024: 修复了 Google OAuth 登录配置
+- 在 Google Cloud Console 配置了正确的重定向 URL：
+  - 添加了生产环境域名：https://kaimafind.com/auth/callback
+  - 添加了 Supabase 回调地址：https://[PROJECT_REF].supabase.co/auth/v1/callback
+- 在 Supabase Authentication 设置中更新了 URL 配置：
+  - Site URL: https://kaimafind.com
+  - Redirect URLs: https://kaimafind.com/auth/callback
+- 优化了登录和注册界面的 UI 设计，采用了简约的黑色线框风格
+- 集成了 Google OAuth 登录功能
+- 移除了多余的图标，保持界面简洁
+
+1/27/2024: 想加入一些关键组件的测试功能
+
+1/26/2025: 优化了登录注册界面
 - 完善了登录和注册页面的 UI 设计，采用了简约的黑色线框风格
 - 统一了表单元素的样式，包括输入框、按钮等
 - 集成了 Google OAuth 登录功能

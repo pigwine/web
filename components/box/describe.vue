@@ -1,15 +1,6 @@
 <template>
   <div>
-    
     <div class="space-y-6">
-      <!-- 阅读空间 -->
-      <NuxtLink to="/bookgroup" class="block mb-6 hover:transform hover:scale-105 transition-transform">
-        <div class="cursor-pointer p-6 border border-gray-200 rounded-lg hover:border-blue-500 hover:shadow-md transition-all bg-white">
-          <h2 class="text-2xl font-bold mb-3 text-gray-900">📚 阅读空间</h2>
-          <p class="text-base text-gray-900">精选好书推荐，分享读书心得与方法</p>
-        </div>
-      </NuxtLink>
-
       <!-- 效率工具 -->
       <NuxtLink to="/usefultool" class="block mb-6 hover:transform hover:scale-105 transition-transform">
         <div class="cursor-pointer p-6 border border-gray-200 rounded-lg hover:border-blue-500 hover:shadow-md transition-all bg-white">
@@ -33,8 +24,8 @@
           <p class="text-base text-gray-900">分享不一样的路子货，学会更好活</p>
         </div>
       </NuxtLink>
-    
     </div>
+    
     <div class="mt-8 text-sm text-gray-500">
       <p>🌟 持续更新中，欢迎关注！</p>
       <p>✨ 终身学习，不断成长</p>

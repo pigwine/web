@@ -77,7 +77,7 @@ const loading = ref(false)
 
 const navItems = [
   { path: '/', text: '首页', icon: '🏠' },
-  { path: '/bookgroup', text: '阅读空间', icon: '📚' },
+  // { path: '/bookgroup', text: '阅读空间', icon: '📚' },  // 注释掉阅读空间
   { path: '/usefultool', text: '实用工具', icon: '🛠️' },
   { path: '/investment', text: '投资理财', icon: '💰' },
   { path: '/usefulthings', text: '实用好物', icon: '🎁' },
