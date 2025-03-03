@@ -78,6 +78,17 @@
 3. 优化加载性能
 4. 添加更多实用工具
 
+1/30/2024: 界面优化和功能调整
+- 取消阅读空间相关功能
+  - 移除导航栏中的阅读空间入口
+  - 移除首页阅读空间模块
+  - 保留但隐藏相关路由
+- 优化离岸开户功能展示
+  - 添加 HSBC 香港远程开户指南链接
+  - 添加微信二维码咨询功能（点击显示/隐藏）
+  - 优化二维码显示位置和样式
+  - 调整页面布局和交互体验
+
 1/30/2024: 修复了 Google OAuth 登录配置
 - 在 Google Cloud Console 配置了正确的重定向 URL：
   - 添加了生产环境域名：https://kaimafind.com/auth/callback
@@ -85,9 +96,6 @@
 - 在 Supabase Authentication 设置中更新了 URL 配置：
   - Site URL: https://kaimafind.com
   - Redirect URLs: https://kaimafind.com/auth/callback
-- 优化了登录和注册界面的 UI 设计，采用了简约的黑色线框风格
-- 集成了 Google OAuth 登录功能
-- 移除了多余的图标，保持界面简洁
 
 1/27/2024: 想加入一些关键组件的测试功能
 
