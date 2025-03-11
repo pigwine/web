@@ -12,12 +12,12 @@ export default defineNuxtConfig({
     head: {
       script: [
         {
-          // Google Analytics 脚本
+          // Google Analytics 脚本 - 使用正确的跟踪 ID
           children: `
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', '10333363176');
+            gtag('config', 'G-7XQQDM99W4');
           `,
           type: 'text/javascript'
         }
@@ -31,7 +31,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       googleAnalytics: {
-        id: '10333363176'
+        id: 'G-7XQQDM99W4'  // 更新为正确的跟踪 ID
       }
     }
   }
