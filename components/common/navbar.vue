@@ -81,7 +81,7 @@ const navItems = [
   { path: '/usefultool', text: '实用工具', icon: '🛠️' },
   { path: '/investment', text: '投资理财', icon: '💰' },
   { path: '/usefulthings', text: '实用好物', icon: '🎁' },
-  { path: '/news/news', text: '新闻资讯', icon: '📰' }
+  { path: '/widgets', text: '小组件', icon: '🧩' }  // 替换新闻资讯为小组件
 ]
 
 // 获取当前用户
