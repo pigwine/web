@@ -188,14 +188,12 @@ const loadWidgets = () => {
       widgets.value = JSON.parse(savedWidgets)
     } else {
       // 默认添加时钟和天气组件
-      addWidget('ClockWidget', 50, 50)
-      addWidget('WeatherWidget', 450, 50)
+      initializeWidgets()
     }
   } catch (e) {
     console.error('加载widgets失败:', e)
     // 默认添加时钟和天气组件
-    addWidget('ClockWidget', 50, 50)
-    addWidget('WeatherWidget', 450, 50)
+    initializeWidgets()
   }
 }
 
@@ -212,34 +210,37 @@ const saveWidgets = () => {
   }
 }
 
-// 添加新组件
-const addWidget = (componentName, x = 50, y = 50) => {
-  // 根据组件类型设置默认尺寸
-  let defaultWidth = 350
-  let defaultHeight = 350
-  
-  if (componentName === 'WeatherWidget') {
-    defaultWidth = 350
-    defaultHeight = 600
-  } else if (componentName === 'ClockWidget') {
-    defaultWidth = 350
-    defaultHeight = 350
-  }
-  
-  // 创建新widget
-  const newWidget = {
-    id: Date.now().toString(),
-    componentName,
-    x,
-    y,
-    width: defaultWidth,
-    height: defaultHeight,
-    displayMode: 'contain'
-  }
-  
-  // 添加到widgets数组
-  widgets.value.push(newWidget)
-  saveWidgets()
+// 初始化小组件数据
+const initializeWidgets = () => {
+  widgets.value = [
+    {
+      id: 'weather',  // 使用简单的字符串ID
+      componentName: 'WeatherWidget',
+      x: 20,
+      y: 20,
+      width: 300,
+      height: 200,
+      displayMode: 'contain'
+    },
+    {
+      id: 'clock',  // 使用简单的字符串ID
+      componentName: 'ClockWidget',
+      x: 340,
+      y: 20,
+      width: 300,
+      height: 200,
+      displayMode: 'contain'
+    },
+    {
+      id: 'calendar',  // 使用简单的字符串ID
+      componentName: 'CalendarWidget',
+      x: 20,
+      y: 240,
+      width: 300,
+      height: 200,
+      displayMode: 'contain'
+    }
+  ]
 }
 
 // 获取组件
@@ -577,17 +578,23 @@ const toggleLock = () => {
   }, 2000)
 }
 
-// 复制嵌入URL
+// 复制嵌入链接
 const copyEmbedUrl = (widget) => {
-  const baseUrl = window.location.origin + window.location.pathname
-  const embedUrl = `${baseUrl}?embed=true&widget=${widget.id}&theme=${isDarkMode.value ? 'dark' : 'light'}`
+  // 修改嵌入链接格式
+  const baseUrl = window.location.origin
+  // 创建专门的嵌入路径
+  const embedUrl = `${baseUrl}/embed/widget/${widget.id}?theme=${isDarkMode.value ? 'dark' : 'light'}`
   
-  navigator.clipboard.writeText(embedUrl).then(() => {
-    showCopyToast.value = true
-    setTimeout(() => {
-      showCopyToast.value = false
-    }, 2000)
-  })
+  navigator.clipboard.writeText(embedUrl)
+    .then(() => {
+      showCopyToast.value = true
+      setTimeout(() => {
+        showCopyToast.value = false
+      }, 2000)
+    })
+    .catch(err => {
+      console.error('复制失败:', err)
+    })
 }
 
 // 清理
@@ -603,7 +610,6 @@ watch(widgets, () => {
   })
 }, { deep: true })
 </script>
-
 <style scoped>
 .widget-canvas {
   position: relative;
