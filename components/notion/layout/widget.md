@@ -1,5 +1,9 @@
 # Widget Layout System
 
+开发流程
+1在components/notion/widget里面编写组件
+2.在components/notion/layout/里面组册组件
+3.在pages/embed/notion.vue里面引入组件导入组件
 ## 布局系统概述
 
 Widget Layout 是一个基于 Vue 3 的可视化布局系统，支持组件的自由排列、拖拽和大小调整。系统采用绝对定位实现自由布局，并内置了防重叠、自动调整等智能特性。
@@ -22,3 +26,4 @@ Widget Layout 是一个基于 Vue 3 的可视化布局系统，支持组件的�
 ## 系统架构
 
 ### 组件层级
+

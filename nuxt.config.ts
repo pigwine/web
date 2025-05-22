@@ -6,21 +6,15 @@ export default defineNuxtConfig({
     '~/plugins/google-analytics.client.ts'
   ],
   devtools: { enabled: true },
-  modules: ['@nuxt/ui', '@nuxt/content', '@nuxtjs/tailwindcss', 'nuxt-icon'],
+  components: true,
+  modules: ['@nuxt/ui', '@nuxt/content', '@nuxtjs/tailwindcss', 'nuxt-icon', '@pinia/nuxt'],
   app: {
     pageTransition: { name: 'page', mode: 'out-in' },
     head: {
-      script: [
-        {
-          // Google Analytics 脚本 - 使用正确的跟踪 ID
-          children: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-7XQQDM99W4');
-          `,
-          type: 'text/javascript'
-        }
+      // 移除内联的GA脚本，使用插件加载
+      meta: [
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        { name: 'description', content: 'OCR系统 - 文本识别与分析' }
       ]
     }
   },
@@ -32,6 +26,21 @@ export default defineNuxtConfig({
     public: {
       googleAnalytics: {
         id: 'G-7XQQDM99W4'  // 更新为正确的跟踪 ID
+      },
+      apiBaseUrl: process.env.NUXT_PUBLIC_API_BASE || 'http://148.135.56.176:8080'
+    }
+  },
+  // 修复WebSocket连接问题
+  vite: {
+    server: {
+      hmr: {
+        protocol: 'ws',
+        host: 'localhost',
+        port: 1815  // 修改为错误信息中显示的端口
+      },
+      watch: {
+        usePolling: true,
+        interval: 1000
       }
     }
   }
