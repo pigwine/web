@@ -3,7 +3,6 @@
     <div class="widgets-grid">
       <WeatherWidget />
       <ClockWidget />
-      <CalendarWidget />
     </div>
   </WidgetLayout>
 </template>

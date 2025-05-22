@@ -24,7 +24,6 @@ const widgetComponent = ref(null)
 const widgetComponents = {
   'weather': defineAsyncComponent(() => import('~/components/notion/widgets/WeatherWidget.vue')),
   'clock': defineAsyncComponent(() => import('~/components/notion/widgets/ClockWidget.vue')),
-  'calendar': defineAsyncComponent(() => import('~/components/notion/widgets/CalendarWidget.vue')),
   // 添加更多组件...
 }
 

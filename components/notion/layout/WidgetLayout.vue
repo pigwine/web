@@ -230,15 +230,6 @@ const initializeWidgets = () => {
       width: 300,
       height: 200,
       displayMode: 'contain'
-    },
-    {
-      id: 'calendar',  // 使用简单的字符串ID
-      componentName: 'CalendarWidget',
-      x: 20,
-      y: 240,
-      width: 300,
-      height: 200,
-      displayMode: 'contain'
     }
   ]
 }

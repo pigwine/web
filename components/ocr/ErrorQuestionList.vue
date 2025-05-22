@@ -169,9 +169,6 @@ function changePage(page: number) {
             <div class="text-sm text-gray-500">{{ new Date(question.created_at).toLocaleDateString() }}</div>
           </td>
           <td class="px-6 py-4 text-right text-sm font-medium">
-            <NuxtLink :to="`/error-questions/${question.id}`" class="text-primary hover:text-primary-dark mr-3">
-              查看
-            </NuxtLink>
             <button @click="handleDelete(question.id)" class="text-red-600 hover:text-red-900">
               删除
             </button>
