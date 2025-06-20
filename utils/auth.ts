@@ -1,11 +1,6 @@
 // 认证工具函数
 import axios from 'axios'
 
-// 设置axios默认配置
-const API_BASE_URL = process.env.NUXT_PUBLIC_API_BASE || 'http://148.135.56.176:8080'
-axios.defaults.baseURL = API_BASE_URL
-console.log('认证API基础URL:', API_BASE_URL)
-
 // 设置axios默认headers
 axios.interceptors.request.use(config => {
   const token = localStorage.getItem('token')
