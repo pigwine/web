@@ -1,4 +1,4 @@
-  <!-- 
+  <!--
   这段代码实现了以下功能：
   1. 动态路由处理：[...slug].vue 文件用于处理所有未明确定义的路由
   2. 内容展示：使用 ContentDoc 组件来显示 Nuxt Content 的文档内容
@@ -10,12 +10,13 @@
     <main>
       <ContentDoc v-if="isContentRoute">
         <template v-slot:not-found>
-          <NuxtErrorBoundary>
-            <error-component :error="{
-              statusCode: 404,
-              message: '内容未找到'
-            }" />
-          </NuxtErrorBoundary>
+          <div class="flex flex-col items-center justify-center min-h-[400px] text-center">
+            <h1 class="text-4xl font-bold text-gray-800 mb-4">404</h1>
+            <p class="text-lg text-gray-600 mb-6">Content not found</p>
+            <NuxtLink to="/" class="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
+              Back to Home
+            </NuxtLink>
+          </div>
         </template>
         <template #default="{ doc }">
           {{ doc }}

@@ -6,7 +6,7 @@
           <span class="font-bold text-gray-800">Kaima</span>
           <span class="text-gray-500">Find</span>
         </div>
-        
+
         <div class="flex-grow flex justify-center">
           <nav class="w-auto">
             <ul class="flex justify-center items-center gap-1 text-base md:text-sm">
@@ -19,7 +19,7 @@
             </ul>
           </nav>
         </div>
-        
+
         <!-- 用户状态区域 -->
         <div class="w-[120px] md:block flex items-center gap-2">
           <template v-if="user">
@@ -30,7 +30,7 @@
                 :disabled="loading"
                 class="nav-text hover:bg-red-50 hover:text-red-500"
               >
-                {{ loading ? '退出中...' : '退出' }}
+                {{ loading ? 'Loading...' : 'Logout' }}
               </button>
             </div>
           </template>
@@ -39,20 +39,20 @@
               to="/login"
               class="nav-text hover:bg-blue-50 hover:text-blue-500"
             >
-              登录
+              Login
             </NuxtLink>
             <NuxtLink
               to="/register"
               class="nav-text hover:bg-green-50 hover:text-green-500"
             >
-              注册
+              Register
             </NuxtLink>
           </template>
         </div>
       </div>
     </header>
 
-    <button 
+    <button
       v-show="showBackToTop"
       @click="scrollToTop"
       class="fixed right-8 bottom-8 bg-gray-800/80 hover:bg-gray-700 text-white rounded-full p-3 shadow-lg transition-all duration-300 z-50"
@@ -75,13 +75,13 @@ const isMobile = ref(false)
 const user = ref(null)
 const loading = ref(false)
 
+// 暂时使用静态文本，等待 i18n 修复
 const navItems = [
-  { path: '/', text: '首页', icon: '🏠' },
-  // { path: '/bookgroup', text: '阅读空间', icon: '📚' },  // 注释掉阅读空间
-  { path: '/usefultool', text: '实用工具', icon: '🛠️' },
-  { path: '/investment', text: '投资理财', icon: '💰' },
-  { path: '/usefulthings', text: '实用好物', icon: '🎁' },
-  { path: '/widgets', text: '小组件', icon: '🧩' }  // 替换新闻资讯为小组件
+  { path: '/', text: 'Home', icon: '🏠' },
+  { path: '/usefultool', text: 'Tools', icon: '🛠️' },
+  { path: '/investment', text: 'Investment', icon: '💰' },
+  { path: '/usefulthings', text: 'Products', icon: '🎁' },
+  { path: '/widgets', text: 'Widgets', icon: '🧩' }
 ]
 
 // 获取当前用户
@@ -97,12 +97,12 @@ const getUser = async () => {
 // 处理退出
 const handleLogout = async () => {
   if (loading.value) return
-  
+
   loading.value = true
   try {
     const { error } = await $supabase.auth.signOut()
     if (error) throw error
-    
+
     user.value = null
     router.push('/login')
   } catch (error) {
@@ -188,7 +188,7 @@ onUnmounted(() => {
   nav {
     margin: 0;
   }
-  
+
   nav ul {
     padding: 0;
   }
