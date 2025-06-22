@@ -1,0 +1,65 @@
+{
+  "nav": {
+    "home": "Home",
+    "tools": "Tools",
+    "investment": "Investment",
+    "widgets": "Widgets",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout"
+  },
+  "common": {
+    "loading": "Loading...",
+    "search": "Search",
+    "filter": "Filter",
+    "save": "Save",
+    "cancel": "Cancel"
+  },
+  "home": {
+    "tools": {
+      "title": "🛠️ Productivity Tools",
+      "description": "Discover practical tools to boost your learning and work efficiency"
+    },
+    "investment": {
+      "title": "💰 Investment & Finance",
+      "description": "Share investment knowledge and explore wealth growth strategies"
+    },
+    "widgets": {
+      "title": "🧩 Useful Widgets",
+      "description": "Interactive widgets and components, one-click save to Notion"
+    },
+    "footer": {
+      "updating": "🌟 Continuously updating, stay tuned!",
+      "learning": "✨ Lifelong learning, continuous growth"
+    }
+  },
+  "seo": {
+    "site": {
+      "title": "KaimaFind - Free Online Tools & Investment Guide Platform",
+      "description": "Discover the best free online tools and professional investment guides. PDF tools, icon resources, AI tools, offshore banking, Web3 investment strategies and more.",
+      "keywords": "online tools, free tools, PDF tools, investment guide, offshore banking, Web3 investment, crypto investment, AI tools, icon download, productivity tools"
+    },
+    "pages": {
+      "home": {
+        "title": "KaimaFind - Free Online Tools & Investment Guide Platform",
+        "description": "Discover the best free online tools and professional investment guides. Access PDF tools, icon resources, AI tools, offshore banking guides, Web3 investment strategies and productivity tools.",
+        "keywords": "online tools, free tools, PDF tools, investment guide, offshore banking, Web3 investment, crypto investment, AI tools, icon download, productivity tools, financial tools"
+      },
+      "tools": {
+        "title": "Free Online Tools - PDF, AI, Icon Resources | KaimaFind",
+        "description": "Access a comprehensive collection of free online tools. PDF converters, AI tools, icon resources, productivity tools and more. All tools are free to use.",
+        "keywords": "free online tools, PDF tools, AI tools, icon resources, productivity tools, online converters, free utilities"
+      },
+      "investment": {
+        "title": "Investment Guide - Offshore Banking & Web3 | KaimaFind",
+        "description": "Professional investment guides covering offshore banking, Web3 strategies, cryptocurrency investment, and financial planning. Expert insights and practical advice.",
+        "keywords": "investment guide, offshore banking, Web3 investment, cryptocurrency, financial planning, investment strategies"
+      },
+      "widgets": {
+        "title": "Useful Widgets & Components | KaimaFind",
+        "description": "Collection of useful widgets and components for developers and users. Weather widgets, calculators, and interactive tools.",
+        "keywords": "widgets, components, weather widget, calculator, interactive tools, developer tools"
+      }
+    }
+  }
+}

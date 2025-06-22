@@ -1,0 +1,65 @@
+{
+  "nav": {
+    "home": "首页",
+    "tools": "工具",
+    "investment": "投资",
+    "widgets": "小组件",
+    "login": "登录",
+    "register": "注册",
+    "logout": "退出"
+  },
+  "common": {
+    "loading": "加载中...",
+    "search": "搜索",
+    "filter": "筛选",
+    "save": "保存",
+    "cancel": "取消"
+  },
+  "home": {
+    "tools": {
+      "title": "🛠️ 效率工具",
+      "description": "发掘实用工具，提升学习与工作效率"
+    },
+    "investment": {
+      "title": "💰 投资理财",
+      "description": "分享投资知识，探讨财富增长之道"
+    },
+    "widgets": {
+      "title": "🧩 实用小组件",
+      "description": "交互式小组件和组件，一键保存到Notion"
+    },
+    "footer": {
+      "updating": "🌟 持续更新中，欢迎关注！",
+      "learning": "✨ 终身学习，不断成长"
+    }
+  },
+  "seo": {
+    "site": {
+      "title": "KaimaFind - 免费在线工具与投资指南平台",
+      "description": "发现最好的免费在线工具和专业投资指南。PDF工具、图标资源、AI工具、离岸银行、Web3投资策略等。",
+      "keywords": "在线工具, 免费工具, PDF工具, 投资指南, 离岸银行, Web3投资, 加密货币投资, AI工具, 图标下载, 生产力工具"
+    },
+    "pages": {
+      "home": {
+        "title": "KaimaFind - 免费在线工具与投资指南平台",
+        "description": "发现最好的免费在线工具和专业投资指南。访问PDF工具、图标资源、AI工具、离岸银行指南、Web3投资策略和生产力工具。",
+        "keywords": "在线工具, 免费工具, PDF工具, 投资指南, 离岸银行, Web3投资, 加密货币投资, AI工具, 图标下载, 生产力工具, 金融工具"
+      },
+      "tools": {
+        "title": "免费在线工具 - PDF、AI、图标资源 | KaimaFind",
+        "description": "访问全面的免费在线工具集合。PDF转换器、AI工具、图标资源、生产力工具等。所有工具免费使用。",
+        "keywords": "免费在线工具, PDF工具, AI工具, 图标资源, 生产力工具, 在线转换器, 免费实用工具"
+      },
+      "investment": {
+        "title": "投资指南 - 离岸银行与Web3 | KaimaFind",
+        "description": "专业投资指南，涵盖离岸银行、Web3策略、加密货币投资和财务规划。专家见解和实用建议。",
+        "keywords": "投资指南, 离岸银行, Web3投资, 加密货币, 财务规划, 投资策略"
+      },
+      "widgets": {
+        "title": "实用小组件与组件 | KaimaFind",
+        "description": "为开发者和用户提供的实用小组件和组件集合。天气小组件、计算器和交互式工具。",
+        "keywords": "小组件, 组件, 天气小组件, 计算器, 交互式工具, 开发者工具"
+      }
+    }
+  }
+}

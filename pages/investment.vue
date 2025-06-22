@@ -46,18 +46,22 @@ definePageMeta({
     layout: 'waitlist'
 })
 
-// SEO配置 - 投资页面英文优化
+// 国际化SEO配置
+const { t, locale } = useI18n()
+
+// 动态SEO配置 - 根据语言切换
 useSeoMeta({
-  title: 'Investment Guide - Offshore Banking, Web3 & Crypto Investment Strategies',
-  description: 'Professional investment guides covering offshore banking setup, Web3 investment strategies, cryptocurrency trading, QDII funds, and international investment opportunities.',
-  keywords: 'investment guide, offshore banking, Web3 investment, crypto investment, cryptocurrency trading, QDII funds, international investment, financial planning, investment strategies',
-  ogTitle: 'Investment Guide - Offshore Banking, Web3 & Crypto Investment Strategies',
-  ogDescription: 'Professional investment guides covering offshore banking setup, Web3 investment strategies, cryptocurrency trading, QDII funds, and international investment opportunities.',
+  title: t('seo.pages.investment.title'),
+  description: t('seo.pages.investment.description'),
+  keywords: t('seo.pages.investment.keywords'),
+  ogTitle: t('seo.pages.investment.title'),
+  ogDescription: t('seo.pages.investment.description'),
   ogImage: '/og-investment.jpg',
-  ogUrl: 'https://kaimafind.com/investment',
+  ogUrl: () => locale.value === 'zh' ? 'https://kaimafind.com/zh/investment' : 'https://kaimafind.com/investment',
+  ogLocale: () => locale.value === 'zh' ? 'zh_CN' : 'en_US',
   twitterCard: 'summary_large_image',
-  twitterTitle: 'Investment Guide - Offshore Banking, Web3 & Crypto Investment Strategies',
-  twitterDescription: 'Professional investment guides covering offshore banking setup, Web3 investment strategies, cryptocurrency trading, QDII funds, and international investment opportunities.',
+  twitterTitle: t('seo.pages.investment.title'),
+  twitterDescription: t('seo.pages.investment.description'),
   twitterImage: '/og-investment.jpg'
 })
 

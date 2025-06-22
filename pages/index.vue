@@ -5,18 +5,22 @@
 </template>
 
 <script setup>
-// SEO配置 - 首页英文优化
+// 国际化SEO配置
+const { t, locale } = useI18n()
+
+// 动态SEO配置 - 根据语言切换
 useSeoMeta({
-  title: 'KaimaFind - Free Online Tools & Investment Guide Platform',
-  description: 'Discover the best free online tools and professional investment guides. Access PDF tools, icon resources, AI tools, offshore banking guides, Web3 investment strategies and productivity tools.',
-  keywords: 'online tools, free tools, PDF tools, investment guide, offshore banking, Web3 investment, crypto investment, AI tools, icon download, productivity tools, financial tools',
-  ogTitle: 'KaimaFind - Free Online Tools & Investment Guide Platform',
-  ogDescription: 'Discover the best free online tools and professional investment guides. Access PDF tools, icon resources, AI tools, offshore banking guides, Web3 investment strategies and productivity tools.',
+  title: t('seo.pages.home.title'),
+  description: t('seo.pages.home.description'),
+  keywords: t('seo.pages.home.keywords'),
+  ogTitle: t('seo.pages.home.title'),
+  ogDescription: t('seo.pages.home.description'),
   ogImage: '/og-image.jpg',
-  ogUrl: 'https://kaimafind.com',
+  ogUrl: () => locale.value === 'zh' ? 'https://kaimafind.com/zh' : 'https://kaimafind.com',
+  ogLocale: () => locale.value === 'zh' ? 'zh_CN' : 'en_US',
   twitterCard: 'summary_large_image',
-  twitterTitle: 'KaimaFind - Free Online Tools & Investment Guide Platform',
-  twitterDescription: 'Discover the best free online tools and professional investment guides. Access PDF tools, icon resources, AI tools, offshore banking guides, Web3 investment strategies and productivity tools.',
+  twitterTitle: t('seo.pages.home.title'),
+  twitterDescription: t('seo.pages.home.description'),
   twitterImage: '/og-image.jpg'
 })
 

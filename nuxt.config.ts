@@ -7,7 +7,7 @@ export default defineNuxtConfig({
   ],
   devtools: { enabled: true },
   components: true,
-  modules: ['@nuxt/ui', '@nuxt/content', '@nuxtjs/tailwindcss', '@pinia/nuxt'],
+  modules: ['@nuxt/ui', '@nuxt/content', '@nuxtjs/tailwindcss', '@pinia/nuxt', '@nuxtjs/i18n'],
 
   // Icon 配置优化
   icon: {
@@ -58,7 +58,16 @@ export default defineNuxtConfig({
         { rel: 'canonical', href: 'https://kaimafind.com' },
         { rel: 'alternate', hreflang: 'en', href: 'https://kaimafind.com' },
         { rel: 'alternate', hreflang: 'zh', href: 'https://kaimafind.com/zh' },
-        { rel: 'alternate', hreflang: 'x-default', href: 'https://kaimafind.com' }
+        { rel: 'alternate', hreflang: 'x-default', href: 'https://kaimafind.com' },
+
+        // 网站图标配置
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+        { rel: 'icon', type: 'image/png', sizes: '192x192', href: '/icon-192.png' },
+        { rel: 'icon', type: 'image/png', sizes: '512x512', href: '/icon-512.png' },
+        { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
+
+        // PWA相关
+        { rel: 'manifest', href: '/site.webmanifest' }
       ]
     }
   },
@@ -66,11 +75,33 @@ export default defineNuxtConfig({
     '/auth/callback': { ssr: false }  // 禁用此页面的服务器端渲染
   },
 
-  // 国际化配置 - 暂时禁用，等待修复
-  // i18n: {
-  //   locales: ['en', 'zh'],
-  //   defaultLocale: 'en'
-  // },
+  // 国际化配置 - 使用内联方式避免路径问题
+  i18n: {
+    locales: [
+      {
+        code: 'en',
+        iso: 'en-US',
+        name: 'English',
+        file: 'en.json'
+      },
+      {
+        code: 'zh',
+        iso: 'zh-CN',
+        name: '中文',
+        file: 'zh.json'
+      }
+    ],
+    defaultLocale: 'en',
+    langDir: 'locales',
+    strategy: 'prefix_except_default',
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: 'i18n_redirected',
+      redirectOn: 'root',
+      alwaysRedirect: true,
+      fallbackLocale: 'en'
+    }
+  },
   // 使用 runtimeConfig 配置 Google Analytics
   runtimeConfig: {
     public: {

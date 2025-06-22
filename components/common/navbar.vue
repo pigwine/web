@@ -11,7 +11,7 @@
           <nav class="w-auto">
             <ul class="flex justify-center items-center gap-1 text-base md:text-sm">
               <li v-for="(item, index) in navItems" :key="index" class="flex-shrink">
-                <NuxtLink :to="item.path" class="flex items-center hover:bg-white/30 rounded-full px-1 py-1">
+                <NuxtLink :to="localePath(item.path)" class="flex items-center hover:bg-white/30 rounded-full px-1 py-1">
                   <span v-if="!isMobile" class="nav-text">{{ item.text }}</span>
                   <span v-else class="nav-icon">{{ item.icon }}</span>
                 </NuxtLink>
@@ -21,7 +21,41 @@
         </div>
 
         <!-- 用户状态区域 -->
-        <div class="w-[120px] md:block flex items-center gap-2">
+        <div class="w-[200px] md:block flex items-center gap-2 justify-end">
+          <!-- 语言切换按钮 -->
+          <div class="relative mr-2">
+            <button
+              @click="showLangDropdown = !showLangDropdown"
+              class="nav-text flex items-center gap-1 hover:bg-blue-50 hover:text-blue-500"
+            >
+              <span>{{ locale === 'zh' ? '🇨🇳' : '🇺🇸' }}</span>
+              <span class="hidden sm:inline">{{ locale === 'zh' ? '中文' : 'EN' }}</span>
+            </button>
+
+            <!-- 语言下拉菜单 -->
+            <div
+              v-show="showLangDropdown"
+              class="absolute right-0 mt-1 w-32 bg-white rounded-lg shadow-lg z-50 border border-gray-200"
+            >
+              <button
+                @click="switchLanguage('en')"
+                class="w-full px-3 py-2 text-left text-gray-700 hover:bg-gray-100 flex items-center gap-2 text-sm"
+                :class="{ 'bg-blue-50 text-blue-700': locale === 'en' }"
+              >
+                <span>🇺🇸</span>
+                <span>English</span>
+              </button>
+              <button
+                @click="switchLanguage('zh')"
+                class="w-full px-3 py-2 text-left text-gray-700 hover:bg-gray-100 flex items-center gap-2 text-sm"
+                :class="{ 'bg-blue-50 text-blue-700': locale === 'zh' }"
+              >
+                <span>🇨🇳</span>
+                <span>中文</span>
+              </button>
+            </div>
+          </div>
+
           <template v-if="user">
             <div class="flex items-center gap-2">
               <span class="text-sm text-gray-600 truncate max-w-[100px]">{{ user.email }}</span>
@@ -30,22 +64,22 @@
                 :disabled="loading"
                 class="nav-text hover:bg-red-50 hover:text-red-500"
               >
-                {{ loading ? 'Loading...' : 'Logout' }}
+                {{ loading ? t('common.loading') : t('nav.logout') }}
               </button>
             </div>
           </template>
           <template v-else>
             <NuxtLink
-              to="/login"
+              :to="localePath('/login')"
               class="nav-text hover:bg-blue-50 hover:text-blue-500"
             >
-              Login
+              {{ t('nav.login') }}
             </NuxtLink>
             <NuxtLink
-              to="/register"
+              :to="localePath('/register')"
               class="nav-text hover:bg-green-50 hover:text-green-500"
             >
-              Register
+              {{ t('nav.register') }}
             </NuxtLink>
           </template>
         </div>
@@ -65,24 +99,42 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, computed } from 'vue'
 
 const { $supabase } = useNuxtApp()
 const router = useRouter()
+const { t, locale, setLocale } = useI18n()
+const localePath = useLocalePath()
 
 const showBackToTop = ref(false)
 const isMobile = ref(false)
 const user = ref(null)
 const loading = ref(false)
+const showLangDropdown = ref(false)
 
-// 暂时使用静态文本，等待 i18n 修复
-const navItems = [
-  { path: '/', text: 'Home', icon: '🏠' },
-  { path: '/usefultool', text: 'Tools', icon: '🛠️' },
-  { path: '/investment', text: 'Investment', icon: '💰' },
-  { path: '/usefulthings', text: 'Products', icon: '🎁' },
-  { path: '/widgets', text: 'Widgets', icon: '🧩' }
-]
+// 使用i18n国际化文本
+const navItems = computed(() => [
+  { path: '/', text: t('nav.home'), icon: '🏠' },
+  { path: '/usefultool', text: t('nav.tools'), icon: '🛠️' },
+  { path: '/investment', text: t('nav.investment'), icon: '💰' },
+  { path: '/widgets', text: t('nav.widgets'), icon: '🧩' }
+])
+
+// 语言切换方法
+const switchLanguage = async (lang) => {
+  try {
+    await setLocale(lang)
+    showLangDropdown.value = false
+
+    // 强制刷新当前页面以应用新语言
+    await navigateTo(router.currentRoute.value.fullPath, {
+      replace: true,
+      external: false
+    })
+  } catch (error) {
+    console.error('语言切换失败:', error)
+  }
+}
 
 // 获取当前用户
 const getUser = async () => {
@@ -104,7 +156,7 @@ const handleLogout = async () => {
     if (error) throw error
 
     user.value = null
-    router.push('/login')
+    router.push(localePath('/login'))
   } catch (error) {
     console.error('退出失败:', error)
   } finally {

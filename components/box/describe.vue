@@ -1,52 +1,158 @@
 <template>
-  <div>
-    <div class="space-y-6">
-      <!-- 效率工具 -->
-      <NuxtLink to="/usefultool" class="block mb-6 hover:transform hover:scale-105 transition-transform">
-        <div class="cursor-pointer p-6 border border-gray-200 rounded-lg hover:border-blue-500 hover:shadow-md transition-all bg-white">
-          <h2 class="text-2xl font-bold mb-3 text-gray-900">🛠️ 效率工具</h2>
-          <p class="text-base text-gray-900">发掘实用工具，提升学习与工作效率</p>
+  <div class="max-w-4xl mx-auto">
+    <div class="space-y-4">
+      <!-- 效率工具 - Notion风格卡片 -->
+      <NuxtLink :to="localePath('/usefultool')" class="group block">
+        <div class="notion-card">
+          <div class="flex items-start space-x-4">
+            <div class="notion-icon">
+              🛠️
+            </div>
+            <div class="flex-1">
+              <h2 class="notion-title">
+                {{ t('home.tools.title') }}
+              </h2>
+              <p class="notion-description">
+                {{ t('home.tools.description') }}
+              </p>
+            </div>
+            <div class="notion-arrow">
+              →
+            </div>
+          </div>
         </div>
       </NuxtLink>
 
-      <!-- 投资理财 -->
-      <NuxtLink to="/investment" class="block mb-6 hover:transform hover:scale-105 transition-transform">
-        <div class="cursor-pointer p-6 border border-gray-200 rounded-lg hover:border-blue-500 hover:shadow-md transition-all bg-white">
-          <h2 class="text-2xl font-bold mb-3 text-gray-900">💰 投资理财</h2>
-          <p class="text-base text-gray-900">分享投资知识，探讨财富增长之道</p>
+      <!-- 投资理财 - Notion风格卡片 -->
+      <NuxtLink :to="localePath('/investment')" class="group block">
+        <div class="notion-card">
+          <div class="flex items-start space-x-4">
+            <div class="notion-icon">
+              💰
+            </div>
+            <div class="flex-1">
+              <h2 class="notion-title">
+                {{ t('home.investment.title') }}
+              </h2>
+              <p class="notion-description">
+                {{ t('home.investment.description') }}
+              </p>
+            </div>
+            <div class="notion-arrow">
+              →
+            </div>
+          </div>
         </div>
       </NuxtLink>
 
-      <!-- 实用好物 -->
-      <NuxtLink to="/usefulthings" class="block mb-6 hover:transform hover:scale-105 transition-transform">
-        <div class="cursor-pointer p-6 border border-gray-200 rounded-lg hover:border-blue-500 hover:shadow-md transition-all bg-white">
-          <h2 class="text-2xl font-bold mb-3 text-gray-900">🎁 实用好物</h2>
-          <p class="text-base text-gray-900">分享不一样的路子货，学会更好活</p>
+      <!-- 实用小组件 - Notion风格卡片 -->
+      <NuxtLink :to="localePath('/widgets')" class="group block">
+        <div class="notion-card">
+          <div class="flex items-start space-x-4">
+            <div class="notion-icon">
+              🧩
+            </div>
+            <div class="flex-1">
+              <h2 class="notion-title">
+                {{ t('home.widgets.title') }}
+              </h2>
+              <p class="notion-description">
+                {{ t('home.widgets.description') }}
+              </p>
+            </div>
+            <div class="notion-arrow">
+              →
+            </div>
+          </div>
         </div>
       </NuxtLink>
     </div>
-    
-    <div class="mt-8 text-sm text-gray-500">
-      <p>🌟 持续更新中，欢迎关注！</p>
-      <p>✨ 终身学习，不断成长</p>
+
+    <!-- 底部信息 - Notion风格 -->
+    <div class="mt-12 text-center space-y-2">
+      <p class="notion-footer-text">{{ t('home.footer.updating') }}</p>
+      <p class="notion-footer-text">{{ t('home.footer.learning') }}</p>
     </div>
   </div>
 </template>
 
 <script setup>
+// 国际化和路由
+const { t } = useI18n()
+const localePath = useLocalePath()
 </script>
 
 <style scoped>
-.text-gray-600 {
-  transition: colors 300ms;
-}
-
-.mb-6:hover .text-gray-600 {
-  color: rgb(37 99 235); /* blue-600 颜色 */
-}
-
-h1 {
+/* Notion风格样式 */
+.notion-card {
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 24px;
+  transition: all 0.2s ease;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  letter-spacing: -0.5px;
+}
+
+.notion-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border-color: #d1d5db;
+}
+
+.notion-icon {
+  font-size: 20px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  background-color: #f9fafb;
+}
+
+.notion-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+.notion-description {
+  color: #6b7280;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.notion-arrow {
+  color: #9ca3af;
+  font-size: 18px;
+  font-weight: 300;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.group:hover .notion-arrow {
+  opacity: 1;
+}
+
+.notion-footer-text {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* 响应式调整 */
+@media (max-width: 640px) {
+  .notion-card {
+    padding: 16px;
+  }
+
+  .notion-title {
+    font-size: 16px;
+  }
+
+  .notion-description {
+    font-size: 12px;
+  }
 }
 </style>

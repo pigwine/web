@@ -12,18 +12,22 @@
 <script setup>
 import ToolList from '~/components/tools/ToolList.vue'
 
-// SEO配置 - 工具页面英文优化
+// 国际化SEO配置
+const { t, locale } = useI18n()
+
+// 动态SEO配置 - 根据语言切换
 useSeoMeta({
-  title: 'Free Online Tools Collection - PDF, AI, Design & Productivity Tools',
-  description: 'Access 50+ free online tools for PDF processing, icon downloads, AI assistance, design resources, and productivity enhancement. No registration required.',
-  keywords: 'free online tools, PDF tools, AI tools, design tools, productivity tools, icon download, online converter, web tools, utility tools, developer tools',
-  ogTitle: 'Free Online Tools Collection - PDF, AI, Design & Productivity Tools',
-  ogDescription: 'Access 50+ free online tools for PDF processing, icon downloads, AI assistance, design resources, and productivity enhancement. No registration required.',
+  title: t('seo.pages.tools.title'),
+  description: t('seo.pages.tools.description'),
+  keywords: t('seo.pages.tools.keywords'),
+  ogTitle: t('seo.pages.tools.title'),
+  ogDescription: t('seo.pages.tools.description'),
   ogImage: '/og-tools.jpg',
-  ogUrl: 'https://kaimafind.com/usefultool',
+  ogUrl: () => locale.value === 'zh' ? 'https://kaimafind.com/zh/usefultool' : 'https://kaimafind.com/usefultool',
+  ogLocale: () => locale.value === 'zh' ? 'zh_CN' : 'en_US',
   twitterCard: 'summary_large_image',
-  twitterTitle: 'Free Online Tools Collection - PDF, AI, Design & Productivity Tools',
-  twitterDescription: 'Access 50+ free online tools for PDF processing, icon downloads, AI assistance, design resources, and productivity enhancement.',
+  twitterTitle: t('seo.pages.tools.title'),
+  twitterDescription: t('seo.pages.tools.description'),
   twitterImage: '/og-tools.jpg'
 })
 

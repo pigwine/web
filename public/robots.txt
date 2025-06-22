@@ -12,7 +12,6 @@ Disallow: /_nuxt/
 # Allow important pages
 Allow: /usefultool
 Allow: /investment
-Allow: /usefulthings
 Allow: /widgets
 Allow: /embed/
 
