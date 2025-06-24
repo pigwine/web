@@ -15,6 +15,14 @@
     "save": "Save",
     "cancel": "Cancel"
   },
+  "footer": {
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "about": "About Us",
+    "contact": "Contact",
+    "allRightsReserved": "All rights reserved.",
+    "description": "Free online tools and professional investment guidance platform"
+  },
   "home": {
     "tools": {
       "title": "🛠️ Productivity Tools",
@@ -30,7 +38,13 @@
     },
     "footer": {
       "updating": "🌟 Continuously updating, stay tuned!",
-      "learning": "✨ Lifelong learning, continuous growth"
+      "learning": "✨ Lifelong learning, continuous growth",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service",
+      "about": "About Us",
+      "contact": "Contact",
+      "allRightsReserved": "All rights reserved.",
+      "description": "Free online tools and professional investment guidance platform"
     }
   },
   "seo": {
@@ -59,7 +73,154 @@
         "title": "Useful Widgets & Components | KaimaFind",
         "description": "Collection of useful widgets and components for developers and users. Weather widgets, calculators, and interactive tools.",
         "keywords": "widgets, components, weather widget, calculator, interactive tools, developer tools"
+      },
+      "privacy": {
+        "title": "Privacy Policy | KaimaFind",
+        "description": "Learn how KaimaFind collects, uses, and protects your personal information. Our commitment to your privacy and data security.",
+        "keywords": "privacy policy, data protection, personal information, cookies, user privacy"
+      },
+      "terms": {
+        "title": "Terms of Service | KaimaFind",
+        "description": "Terms and conditions for using KaimaFind platform. User responsibilities, service limitations, and legal agreements.",
+        "keywords": "terms of service, user agreement, terms and conditions, legal terms, service rules"
+      },
+      "about": {
+        "title": "About KaimaFind | Free Tools & Investment Platform",
+        "description": "Learn about KaimaFind's mission to provide free online tools and professional investment guidance. Our story, values, and commitment to users.",
+        "keywords": "about us, company information, mission, values, team, platform story"
+      },
+      "contact": {
+        "title": "Contact Us | KaimaFind",
+        "description": "Get in touch with the KaimaFind team for support, feedback, or partnership opportunities. Multiple contact methods with quick response.",
+        "keywords": "contact us, customer support, feedback, partnership, contact information"
       }
     }
+  },
+  "privacy": {
+    "lastUpdated": "Last Updated",
+    "updateDate": "December 21, 2024",
+    "introduction": {
+      "title": "Introduction",
+      "content": "KaimaFind is committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website and use our services."
+    },
+    "dataCollection": {
+      "title": "Information We Collect",
+      "intro": "We may collect the following types of information:",
+      "items": [
+        "Personal information you provide voluntarily (email, name, preferences)",
+        "Usage data and analytics (pages visited, time spent, interactions)",
+        "Device information (browser type, IP address, operating system)",
+        "Cookies and similar tracking technologies"
+      ]
+    },
+    "dataUsage": {
+      "title": "How We Use Your Information",
+      "intro": "We use the collected information for the following purposes:",
+      "items": [
+        "To provide and maintain our services",
+        "To improve user experience and website functionality",
+        "To analyze usage patterns and optimize our platform",
+        "To communicate with users about updates and new features",
+        "To ensure security and prevent fraud"
+      ]
+    },
+    "cookies": {
+      "title": "Cookies and Tracking",
+      "content": "We use cookies and similar technologies to enhance your browsing experience, analyze site traffic, and understand user preferences. You can control cookie settings through your browser preferences."
+    },
+    "thirdParty": {
+      "title": "Third-Party Services",
+      "intro": "We may use third-party services that collect information:",
+      "services": [
+        { "name": "Google Analytics", "purpose": "Website analytics and user behavior analysis" },
+        { "name": "Weather APIs", "purpose": "Providing real-time weather data for widgets" },
+        { "name": "CDN Services", "purpose": "Content delivery and website performance optimization" }
+      ]
+    },
+    "userRights": {
+      "title": "Your Rights",
+      "intro": "You have the following rights regarding your personal information:",
+      "rights": [
+        "Access and review your personal data",
+        "Request correction of inaccurate information",
+        "Request deletion of your personal data",
+        "Opt-out of certain data collection practices",
+        "Data portability and transfer rights"
+      ]
+    },
+    "contact": {
+      "title": "Contact Us",
+      "content": "If you have any questions about this Privacy Policy or our data practices, please contact us:",
+      "email": "Email"
+    }
+  },
+  "terms": {
+    "lastUpdated": "Last Updated",
+    "updateDate": "December 21, 2024",
+    "acceptance": {
+      "title": "Acceptance of Terms",
+      "content": "By accessing and using KaimaFind, you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service."
+    },
+    "services": {
+      "title": "Description of Service",
+      "intro": "KaimaFind provides the following services:",
+      "list": [
+        "Free online tools for productivity and utility purposes",
+        "Investment guides and educational content",
+        "Interactive widgets and components",
+        "Information and resources related to financial planning"
+      ]
+    },
+    "userResponsibilities": {
+      "title": "User Responsibilities",
+      "intro": "As a user of our platform, you agree to:",
+      "list": [
+        "Use the service only for lawful purposes",
+        "Respect intellectual property rights",
+        "Not attempt to harm or disrupt the service",
+        "Provide accurate information when required",
+        "Comply with all applicable laws and regulations"
+      ]
+    },
+    "prohibited": {
+      "title": "Prohibited Uses",
+      "intro": "You may not use our service:",
+      "list": [
+        "For any unlawful purpose or to solicit others to unlawful acts",
+        "To violate any international, federal, provincial, or state regulations, rules, laws, or local ordinances",
+        "To infringe upon or violate our intellectual property rights or the intellectual property rights of others",
+        "To harass, abuse, insult, harm, defame, slander, disparage, intimidate, or discriminate",
+        "To submit false or misleading information"
+      ]
+    },
+    "intellectual": {
+      "title": "Intellectual Property Rights",
+      "content": "The service and its original content, features, and functionality are and will remain the exclusive property of KaimaFind and its licensors. The service is protected by copyright, trademark, and other laws."
+    },
+    "disclaimer": {
+      "title": "Disclaimer",
+      "content": "The information on this website is provided on an 'as is' basis. To the fullest extent permitted by law, this Company excludes all representations, warranties, conditions and terms.",
+      "warning": "Investment information is for educational purposes only and should not be considered as financial advice. Always consult with qualified professionals before making investment decisions."
+    },
+    "limitation": {
+      "title": "Limitation of Liability",
+      "content": "In no event shall KaimaFind, nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses."
+    },
+    "changes": {
+      "title": "Changes to Terms",
+      "content": "We reserve the right, at our sole discretion, to modify or replace these Terms at any time. If a revision is material, we will try to provide at least 30 days notice prior to any new terms taking effect."
+    },
+    "contact": {
+      "title": "Contact Information",
+      "content": "If you have any questions about these Terms of Service, please contact us:",
+      "email": "Email"
+    }
+  },
+  "about": {
+    "title": "About Us",
+    "description": "A platform formed by people who are good at discovering on the Internet"
+  },
+  "contact": {
+    "instruction": "Click the arrow to view contact information"
   }
 }

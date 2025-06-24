@@ -130,5 +130,12 @@ export default defineNuxtConfig({
     experimental: {
       wasm: true
     }
+  },
+
+  // 解决中间件重复警告
+  hooks: {
+    'nitro:config': (nitroConfig) => {
+      nitroConfig.middleware = nitroConfig.middleware || []
+    }
   }
 })
