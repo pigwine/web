@@ -55,33 +55,6 @@
               </button>
             </div>
           </div>
-
-          <template v-if="user">
-            <div class="flex items-center gap-2">
-              <span class="text-sm text-gray-600 truncate max-w-[100px]">{{ user.email }}</span>
-              <button
-                @click="handleLogout"
-                :disabled="loading"
-                class="nav-text hover:bg-red-50 hover:text-red-500"
-              >
-                {{ loading ? t('common.loading') : t('nav.logout') }}
-              </button>
-            </div>
-          </template>
-          <template v-else>
-            <NuxtLink
-              :to="localePath('/login')"
-              class="nav-text hover:bg-blue-50 hover:text-blue-500"
-            >
-              {{ t('nav.login') }}
-            </NuxtLink>
-            <NuxtLink
-              :to="localePath('/register')"
-              class="nav-text hover:bg-green-50 hover:text-green-500"
-            >
-              {{ t('nav.register') }}
-            </NuxtLink>
-          </template>
         </div>
       </div>
     </header>
@@ -101,15 +74,12 @@
 <script setup>
 import { ref, onMounted, onUnmounted, computed } from 'vue'
 
-const { $supabase } = useNuxtApp()
 const router = useRouter()
 const { t, locale, setLocale } = useI18n()
 const localePath = useLocalePath()
 
 const showBackToTop = ref(false)
 const isMobile = ref(false)
-const user = ref(null)
-const loading = ref(false)
 const showLangDropdown = ref(false)
 
 // 使用i18n国际化文本
@@ -137,32 +107,9 @@ const switchLanguage = async (lang) => {
 }
 
 // 获取当前用户
-const getUser = async () => {
-  try {
-    const { data: { user: currentUser } } = await $supabase.auth.getUser()
-    user.value = currentUser
-  } catch (error) {
-    console.error('获取用户信息失败:', error)
-  }
-}
 
 // 处理退出
-const handleLogout = async () => {
-  if (loading.value) return
 
-  loading.value = true
-  try {
-    const { error } = await $supabase.auth.signOut()
-    if (error) throw error
-
-    user.value = null
-    router.push(localePath('/login'))
-  } catch (error) {
-    console.error('退出失败:', error)
-  } finally {
-    loading.value = false
-  }
-}
 
 const handleScroll = () => {
   showBackToTop.value = window.scrollY > 300
@@ -181,16 +128,10 @@ const checkDevice = () => {
   isMobile.value = mobileRegex.test(userAgent.toLowerCase())
 }
 
-// 监听认证状态变化
-$supabase.auth.onAuthStateChange((event, session) => {
-  user.value = session?.user || null
-})
-
 onMounted(() => {
   window.addEventListener('scroll', handleScroll)
   checkDevice()
   window.addEventListener('resize', checkDevice)
-  getUser() // 获取初始用户状态
 })
 
 onUnmounted(() => {

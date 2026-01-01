@@ -1,13 +1,14 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
-  plugins: [
-    '~/plugins/supabase.ts',
-    '~/plugins/google-analytics.client.ts'
-  ],
+  plugins: [],
   devtools: { enabled: true },
   components: true,
-  modules: ['@nuxt/ui', '@nuxt/content', '@nuxtjs/tailwindcss', '@pinia/nuxt', '@nuxtjs/i18n'],
+  modules: ['@nuxt/ui', '@nuxt/content', '@nuxtjs/tailwindcss', '@pinia/nuxt', '@nuxtjs/i18n', 'nuxt-gtag'],
+
+  gtag: {
+    id: 'G-7XQQDM99W4'
+  },
 
   // Icon 配置优化
   icon: {
@@ -100,28 +101,9 @@ export default defineNuxtConfig({
       redirectOn: 'root',
       alwaysRedirect: true,
       fallbackLocale: 'en'
-    }
-  },
-  // 使用 runtimeConfig 配置 Google Analytics
-  runtimeConfig: {
-    public: {
-      googleAnalytics: {
-        id: 'G-7XQQDM99W4'  // 更新为正确的跟踪 ID
-      }
-    }
-  },
-  // 修复WebSocket连接问题
-  vite: {
-    server: {
-      hmr: {
-        protocol: 'ws',
-        host: 'localhost',
-        port: 1815  // 修改为错误信息中显示的端口
-      },
-      watch: {
-        usePolling: true,
-        interval: 1000
-      }
+    },
+    bundle: {
+      optimizeTranslationDirective: false
     }
   },
 
@@ -132,10 +114,4 @@ export default defineNuxtConfig({
     }
   },
 
-  // 解决中间件重复警告
-  hooks: {
-    'nitro:config': (nitroConfig) => {
-      nitroConfig.middleware = nitroConfig.middleware || []
-    }
-  }
 })
