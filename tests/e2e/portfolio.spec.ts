@@ -1,7 +1,7 @@
 import {test,expect} from '@playwright/test'
 import AxeBuilder from '@axe-core/playwright'
 test('editorial shell is readable, localized and mobile responsive',async({page})=>{
- await page.goto('/zh');await expect(page.locator('h1')).toContainText('KAIMAFIND');await expect(page.getByRole('link',{name:'人生地图',exact:true})).toBeVisible()
+ await page.goto('/zh');await page.waitForFunction(()=>!!(document.querySelector('#__nuxt') as any)?.__vue_app__);await expect(page.locator('h1')).toContainText('KAIMAFIND');await expect(page.getByRole('link',{name:'人生地图',exact:true})).toBeVisible()
  const scan=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21aa']).analyze();expect(scan.violations).toEqual([])
  await page.getByRole('link',{name:'Switch to English'}).click();await expect(page.getByRole('link',{name:'Life map',exact:true})).toBeVisible()
  await page.setViewportSize({width:375,height:812});expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true)
