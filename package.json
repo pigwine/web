@@ -1,37 +1,40 @@
 {
-  "name": "nuxt-app",
+  "name": "kaimafind",
   "private": true,
   "type": "module",
   "scripts": {
+    "dev": "nuxt dev --host 127.0.0.1",
     "build": "nuxt build",
-    "dev": "nuxt dev",
-    "generate": "nuxt generate",
-    "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "build:cloudflare": "NITRO_PRESET=cloudflare_module nuxt build",
+    "preview": "node .output/server/index.mjs",
+    "postinstall": "nuxt prepare",
+    "typecheck": "nuxt typecheck",
+    "test": "vitest run",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
-    "@iconify-icons/ri": "^1.2.10",
-    "@iconify-icons/simple-icons": "^1.2.74",
-    "@iconify/vue": "^4.1.3-beta.1",
-    "@nuxt/content": "^2.13.4",
-    "@nuxt/ui": "^2.19.2",
-    "@nuxtjs/i18n": "^9.5.5",
-    "@pinia/nuxt": "^0.11.0",
-    "@vercel/analytics": "^1.3.2",
-    "nuxt": "^3.13.0",
-    "nuxt-gtag": "^4.1.0",
-    "pinia": "^3.0.2",
-    "vue": "latest",
-    "vue-router": "latest"
+    "@tiptap/core": "3.32.2",
+    "@tiptap/extension-image": "3.32.2",
+    "@tiptap/extension-link": "3.32.2",
+    "@tiptap/pm": "3.32.2",
+    "@tiptap/starter-kit": "3.32.2",
+    "@tiptap/vue-3": "3.32.2",
+    "@vue-flow/core": "1.48.2",
+    "jose": "6.2.15",
+    "nuxt": "4.6.4",
+    "reka-ui": "2.11.0",
+    "vue": "3.5.44",
+    "vue-router": "5.4.0",
+    "zod": "4.6.7"
   },
   "devDependencies": {
-    "@iconify-json/simple-icons": "^1.2.10",
-    "@iconify/json": "^2.2.292",
-    "@nuxtjs/tailwindcss": "^6.12.2",
-    "@tailwindcss/nesting": "^0.0.0-insiders.565cd3e",
-    "autoprefixer": "^10.4.20",
-    "nuxt-icon": "^1.0.0-beta.7",
-    "postcss": "^8.4.49",
-    "tailwindcss": "^3.4.15"
+    "@axe-core/playwright": "4.14.0",
+    "@cloudflare/workers-types": "5.20261104.1",
+    "@playwright/test": "1.64.1",
+    "@types/node": "24.10.0",
+    "typescript": "6.0.3",
+    "vitest": "5.1.0",
+    "vue-tsc": "3.3.14",
+    "wrangler": "4.157.0"
   }
 }

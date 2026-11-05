@@ -1,0 +1,98 @@
+[
+  {
+    "id": "smallpdf",
+    "title": "SmallPDF - 文件转换工具",
+    "description": "专业的PDF工具，支持Word转PDF等多种格式转换",
+    "url": "https://smallpdf.com"
+  },
+  {
+    "id": "ai-voice",
+    "title": "Notta语音转文字",
+    "description": "专业的语音转文字工具",
+    "url": "https://www.notta.ai/en/tools/audio-to-text-converter"
+  },
+  {
+    "id": "macos-apps",
+    "title": "iMacSO",
+    "description": "精品 macOS 应用下载站",
+    "url": "https://www.imacso.com"
+  },
+  {
+    "id": "moodist",
+    "title": "Moodist",
+    "description": "免费白噪音和环境音效网站，提供78种声音助力专注和放松",
+    "url": "https://moodist.mvze.net"
+  },
+  {
+    "id": "emoji-tools",
+    "title": "Emoji表情词典",
+    "description": "全面的Emoji表情符号词典，让公众号排版更有趣",
+    "url": "https://www.emojiall.com/zh-hans"
+  },
+  {
+    "id": "art-gallery",
+    "title": "艺术图片库",
+    "description": "艺术作品图片赏析平台",
+    "url": "https://b.yishu.wiki/ImageList/Index"
+  },
+  {
+    "id": "gamma",
+    "title": "Gamma - AI PPT生成器",
+    "description": "使用AI技术快速生成专业演示文稿，需要科学上网，付费使用",
+    "url": "https://gamma.app"
+  },
+  {
+    "id": "screen-recording",
+    "title": "OBS Studio",
+    "description": "专业级开源录屏直播软件，支持多场景切换、实时推流、视频录制等功能，是目前最强大的免费录屏工具之一",
+    "url": "https://obsproject.com/"
+  },
+  {
+    "id": "Annas-Archive",
+    "title": "Anna's Archive",
+    "description": "全球最大的开源电子书搜索引擎，收录多语种电子书、学术文献等数字资源，支持多种格式下载",
+    "url": "https://zh.annas-archive.org/"
+  },
+  {
+    "id": "icon-resource",
+    "title": "3Earth Icon",
+    "description": "高质量图标资源库，提供持续更新的高清图标素材，支持多种格式下载，适合设计师和开发者使用",
+    "url": "https://icon.3earth.space/"
+  },
+  {
+    "id": "icon-tools",
+    "title": "App图标下载工具",
+    "description": "下载App Store中各种应用的图标",
+    "url": "https://icon.3earth.space"
+  },
+  {
+    "id": "sms-activate",
+    "title": "SMS Activate",
+    "description": "全球虚拟号码接收验证码平台",
+    "url": "https://sms-activate.guru/?ref=12168361"
+  },
+  {
+    "id": "pdf-tools",
+    "title": "PDF.is - PDF多功能工具",
+    "description": "多样化PDF处理工具，支持多种PDF操作",
+    "url": "https://pdf.is/multi-tool"
+  },
+  {
+    "id": "ai-icons",
+    "title": "LobeHub Icon库",
+    "description": "AI生成的图标库",
+    "url": "https://icons.lobehub.com"
+  },
+  {
+    "id": "remove-bg",
+    "title": "Remove.bg - AI抠图工具",
+    "description": "专业的AI自动抠图工具，快速移除图片背景",
+    "url": "https://www.remove.bg"
+  },
+  {
+    "id": "markdown-editor",
+    "title": "微信 Markdown 编辑器",
+    "description": "一款高度简洁的微信 Markdown 编辑器，支持 Markdown 语法、色盘取色、一键复制等特性",
+    "url": "https://doocs-md.pages.dev"
+  }
+]

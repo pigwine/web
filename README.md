@@ -1,47 +1,31 @@
-# 多功能应用平台
+# KaimaFind
 
-这是一个基于Nuxt 3构建的多功能应用平台，集成了多种工具和功能。
+A bilingual personal portfolio and life map. Editorial design inspired by the Hannah Miles / Extract Studio reference selected by the owner.
 
-## 主要功能
+## Develop
 
-- 搜索功能
-- 工具页面
-- 标签页面
-- 内容预览
+Node 22+ recommended. `npm ci`, copy `.env.example` to `.env`, set `NUXT_LOCAL_ADMIN=true`, then `npm run dev`.
 
-## 技术栈
+- `/zh`, `/en`: public portfolio
+- `/zh/map`: life map with list fallback
+- `/admin`: local content studio (development only; production requires Cloudflare Access)
 
-- Nuxt 3
-- Vue 3
-- Tailwind CSS
-- Supabase
+Development starts with a clearly labeled visual sample gallery if there are no records. Creating real content replaces the samples. Samples never populate the database or appear in a production build.
 
-## 开始使用
+Draft edits auto-save. Publish each language independently. Use “加入作品导览” and its sort number to curate the homepage, then publish to apply. Projects contain dated progress and works. Upload JPEG/PNG/WebP (10 MB max) or PDF (25 MB max). File content and permissions are checked on the server.
 
-```bash
-# 安装依赖
-npm install
+Local state is stored in ignored `.data/content`. JSON export contains content/metadata, not attachment bytes. Keep local state private.
 
-# 开发模式
-npm run dev
+## Checks
 
-# 构建项目
-npm run build
+`npm run typecheck`, `npm test`, `npm run build`, `npm run test:e2e`.
 
-# 预览模式
-npm run preview
-```
+See docs/deployment.md before Cloudflare deployment. Account bindings and Access configuration are required. No domain cutover is automated.
 
-## 项目结构
+## Legacy content
 
-详细的项目结构和技术架构，请参考 `project_architecture.md` 文件。
+Old tools: `/zh/archive/tools`; investment content: `/zh/archive/investment`; clock embed: `/embed/widget/clock`. Legacy route redirects are explicit. Weather integration is temporarily disabled rather than shipping the old inline third-party API credential. Old root source directories are retained for migration and excluded from the new app's route discovery.
 
-这俩天开发的工具，整理一下
-搜索框，工具页面，标签页面的添加和集合（不过想着，要不再加个内胆的介绍页面来满足预览的需要）
+## Assets
 
-
-
-从现在开始写吧（2024-01-04）
-之前都没具体写过
-
-
+Bodoni Moda is self-hosted under the SIL Open Font License; see public/fonts/OFL.txt. Preview photos are downloaded from Unsplash, for the local visual study only; see docs/preview-assets.md. Replace them with the owner's real work before publication. The project skill's source revision and license are in .agents/skills/frontend-design.

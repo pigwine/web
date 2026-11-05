@@ -1,0 +1,2 @@
+<script setup lang="ts">defineProps<{value:any}>()</script>
+<template><p v-if="typeof value==='string'">{{value}}</p><ul v-else-if="Array.isArray(value)"><li v-for="(item,i) in value" :key="i"><LegacyText :value="item"/></li></ul><section v-else-if="value&&typeof value==='object'"><h2 v-if="value.title">{{value.title}}</h2><LegacyText v-for="(item,key) in Object.fromEntries(Object.entries(value).filter(([k])=>k!=='title'))" :key="key" :value="item"/></section></template>

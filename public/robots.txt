@@ -1,19 +1,4 @@
 User-agent: *
-Allow: /
-
-# Sitemap
-Sitemap: https://kaimafind.com/sitemap.xml
-
-# Disallow admin and auth pages
-Disallow: /auth/
-Disallow: /admin/
-Disallow: /_nuxt/
-
-# Allow important pages
-Allow: /usefultool
-Allow: /investment
-Allow: /widgets
-Allow: /embed/
-
-# Crawl-delay for respectful crawling
-Crawl-delay: 1
+Disallow: /admin
+Disallow: /api/admin/
+Disallow: /embed/

@@ -26,3 +26,9 @@ logs
 # Database
 *.sql
 !db/init.sql  # 但保留初始化脚本
+
+.wrangler
+playwright-report
+test-results
+!.env.example
+!migrations/*.sql

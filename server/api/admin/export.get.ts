@@ -1,0 +1,1 @@
+export default defineEventHandler(async event=>{await requireAdmin(event);setHeaders(event,{'Cache-Control':'no-store','Content-Disposition':'attachment; filename="kaimafind-backup.json"'});return {exportedAt:new Date().toISOString(),state:await readState(event)}})

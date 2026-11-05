@@ -1,51 +1,16 @@
-# 知识空间系统架构设计
+# Personal portfolio architecture
 
-## 1. 系统概述
-知识空间是一个面向知识管理与分享的在线平台，旨在为用户提供系统化的学习和知识沉淀环境。
+Nuxt 4 + Vue serves public SSR pages and Nitro endpoints. Vue Flow is loaded only on the map route; Tiptap only in the studio. Reka UI provides the preview dialog's keyboard/focus behavior.
 
-## 2. 技术栈选择
-- 前端框架：Nuxt 3
-- UI框架：Tailwind CSS
-- 状态管理：Pinia
-- 后端框架：待定
-- 数据库：待定
+## Storage and publishing
+D1 stores a versioned content document in one singleton row, guarded by an optimistic revision compare-and-swap. This is a deliberate v1 simplification for one owner and a small personal archive, not a multi-user CMS. Entries retain editable drafts, up to 20 prior draft snapshots, and independent zh/en published snapshots. JSON export is available to the administrator. A future normalized schema migration can preserve entry IDs.
+Local development uses Nitro filesystem storage under .data/content, excluded from Git. Production refuses to operate without D1. File bytes use private R2 objects in production, local base64 storage only in development. Production media is served only if referenced by a public snapshot, otherwise requires administrator auth. Responses are no-store so unpublished files cannot be revived by shared caches.
 
-## 3. 核心功能模块
+## Security
+Cloudflare Access JWT signature/issuer/audience/email are verified server-side. Every mutation checks Origin. The local bypass requires development build, explicit NUXT_LOCAL_ADMIN=true, and loopback host. No production bypass. Structured rich text is allowlisted and rendered without v-html. Uploads validate MIME, magic bytes, size and filename disposition. Preview/gallery demo data is development-only.
 
-### 3.1 读书空间（Book Space）
-- 读书方法论分享
-- 主题阅读路径
-- 读书笔记与心得
-- 书籍推荐系统
+## Versioning
+The aggregate revision prevents concurrent Worker writes from overwriting unrelated changes. Per-entry version checks prevent silent overwrites across browser tabs. Conflicts leave client changes unsaved with an explicit error. Public content routes never receive draft/history fields.
 
-### 3.2 知识管理（Knowledge Management）
-- 知识图谱构建
-- 笔记系统
-- 标签管理
-- 知识关联
-
-### 3.3 社区互动（Community）
-- 读书小组
-- 讨论区
-- 知识问答
-- 用户间互动
-
-### 3.4 个人中心（Personal Center）
-- 个人知识库
-- 学习计划
-- 阅读追踪
-- 成长统计
-
-## 4. 数据结构设计
-
-### 4.1 用户模型（User）
-
-## 12. 组件设计模式
-
-### 12.1 组件拆分原则
-- 页面级组件（pages）仅作为容器和路由入口
-- 具体功能实现在 components 目录下进行组件化开发
-- 遵循"单一职责"原则，每个组件专注于特定功能
-- 通过组合复用来构建复杂功能
-
-### 12.2 组件结构示例 
+## Remaining operational setup
+Before production: provision separate preview and production D1/R2, apply migrations, configure Access and its secrets, set the custom domain, schedule database and object backups, rehearse restore, review legacy route coverage and upload real portfolio material. See deployment.md. Do not cut over the domain before these steps.
