@@ -6,6 +6,6 @@
   "compatibility_flags": ["nodejs_compat"],
   "assets": { "directory": ".output/public", "binding": "ASSETS" },
   "observability": { "enabled": true },
-  "d1_databases": [{"binding":"DB","database_name":"kaimafind-preview","database_id":"REPLACE_WITH_PROVISIONED_DATABASE_ID","migrations_dir":"migrations"}],
+  "d1_databases": [{"binding":"DB","database_name":"kaimafind-preview","database_id":"56ef13d4-7acb-4226-8693-edcbd7ee481a","migrations_dir":"migrations"}],
   "r2_buckets": [{"binding":"MEDIA","bucket_name":"kaimafind-preview-media"}]
 }

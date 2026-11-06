@@ -1,9 +1,9 @@
 # Cloudflare deployment runbook
 
-This repository does not contain verified Cloudflare account/project IDs. No production deployment has been performed.
+Cloudflare account `708bffdc65774f72633a54eaf1b3ca95` owns the existing `web2` Pages project and `kaimafind.com`. The isolated `kaimafind-preview` D1 database was provisioned and migration `0001_content.sql` applied on 2026-11-06. R2 and Zero Trust Access are not enabled on this account, so the new Worker has not been deployed. No production deployment has been performed.
 
-1. Create preview resources (`wrangler d1 create kaimafind-preview`, `wrangler r2 bucket create kaimafind-preview-media`). Put the returned D1 ID into wrangler.jsonc. Keep production in a separate Wrangler configuration and separate buckets/database.
-2. Apply `npx wrangler d1 migrations apply kaimafind-preview --remote`.
+1. Enable R2 in the Cloudflare dashboard and create `kaimafind-preview-media`. The preview D1 database already exists and is bound in `wrangler.jsonc`. Keep production in a separate Wrangler configuration and separate buckets/database.
+2. Migration `0001_content.sql` is already applied to the preview D1 database. Apply future migrations with `npx wrangler d1 migrations apply kaimafind-preview --remote` after Wrangler authentication is refreshed.
 3. Configure Cloudflare Access for `/admin`, `/api/admin/*` and protect preview deployment access. Allow only the owner email. The Worker independently verifies JWTs even when an alternate route bypasses Access.
 4. Set secrets NUXT_ACCESS_TEAM (team.cloudflareaccess.com), NUXT_ACCESS_AUDIENCE, NUXT_ADMIN_EMAIL. Do not configure NUXT_LOCAL_ADMIN in production. Configure the actual site URL.
 5. Run typecheck, tests and `npm run build:cloudflare`; deploy using `npx wrangler deploy`. No automated deploy runs on PRs.
