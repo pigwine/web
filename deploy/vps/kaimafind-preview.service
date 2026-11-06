@@ -1,0 +1,25 @@
+[Unit]
+Description=KaimaFind preview website
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=kaimafind
+Group=kaimafind
+WorkingDirectory=/opt/kaimafind/current
+Environment=NODE_ENV=production
+Environment=HOST=127.0.0.1
+Environment=PORT=3101
+EnvironmentFile=/etc/kaimafind/preview.env
+ExecStart=/opt/node/current/bin/node /opt/kaimafind/current/server/index.mjs
+Restart=always
+RestartSec=3
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ReadWritePaths=/var/lib/kaimafind
+
+[Install]
+WantedBy=multi-user.target

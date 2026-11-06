@@ -6,6 +6,7 @@
     "dev": "nuxt dev --host 127.0.0.1",
     "build": "nuxt build",
     "build:cloudflare": "NITRO_PRESET=cloudflare_module nuxt build",
+    "build:vps": "KAIMAFIND_VPS_DATA_DIR=/var/lib/kaimafind/data NITRO_PRESET=node-server nuxt build",
     "preview": "node .output/server/index.mjs",
     "postinstall": "nuxt prepare",
     "typecheck": "nuxt typecheck",

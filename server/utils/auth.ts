@@ -1,5 +1,6 @@
 import { createRemoteJWKSet, jwtVerify } from 'jose'
 import type { H3Event } from 'h3'
+import { verifyBasicCredential } from './basic-auth'
 const keys = new Map<string, ReturnType<typeof createRemoteJWKSet>>()
 export async function requireAdmin(event:H3Event) {
   const config=useRuntimeConfig(event)
@@ -10,6 +11,11 @@ export async function requireAdmin(event:H3Event) {
     if(!origin || origin!==url.origin) throw createError({statusCode:403,statusMessage:'Invalid request origin'})
   }
   if(local) return {local:true,email:'Local preview'}
+  if(config.vpsAdminUser && config.vpsAdminHash) {
+    const valid=await verifyBasicCredential(getHeader(event,'authorization'),String(config.vpsAdminUser),String(config.vpsAdminHash))
+    if(!valid) {setHeader(event,'WWW-Authenticate','Basic realm="KaimaFind Studio", charset="UTF-8"');throw createError({statusCode:401,statusMessage:'Administrator sign-in required'})}
+    return {local:false,email:String(config.vpsAdminUser)}
+  }
   if(!config.accessTeam || !config.accessAudience || !config.adminEmail) throw createError({statusCode:503,statusMessage:'Administrator access is not configured'})
   const token=getHeader(event,'cf-access-jwt-assertion')
   if(!token) throw createError({statusCode:401,statusMessage:'Sign in required'})
