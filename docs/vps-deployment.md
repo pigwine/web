@@ -4,6 +4,8 @@ The `ocr-vps` SSH alias points to an Ubuntu 24.04 host. Its port 443 is occupied
 
 Run `npm run build:vps` and `scripts/deploy-vps.sh` from this repository to send the built `.output` to a new release directory and atomically update the service symlink. The pinned Node runtime lives in `/opt/node/current`. Content and media are stored under `/var/lib/kaimafind/data`, outside releases, so deployments do not replace uploaded work. The service reads its production-only settings from `/etc/kaimafind/preview.env`. Never put that file or the administrator password in Git.
 
+The deploy script restores the previous release if the local HTTP health check fails. Run `scripts/backup-vps.sh` to pull a private archive of content and media to `~/.local/share/kaimafind/backups`; set `KAIMAFIND_BACKUP_DIR` to choose another destination. Keep a separate off-device copy of these archives. To restore, stop `kaimafind-preview`, extract the archive into `/var/lib/kaimafind` on the VPS, correct ownership to `kaimafind:kaimafind`, and restart the service.
+
 The site uses HTTP Basic authentication for the studio on the VPS, with a salted PBKDF2 password hash in the environment file. Access to `/admin`, `/api/admin/*` and unpublished media is checked by the application. Use HTTPS through the Cloudflare Tunnel; do not expose the loopback Node port publicly.
 
 Before using this as production, add the owner's real projects and photographs, verify backups and off-server copies, and review the existing route migration. The VPS preview is independent of the Cloudflare D1 preview database, which can be left unused.

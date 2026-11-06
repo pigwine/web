@@ -8,7 +8,7 @@ Node 22+ recommended. `npm ci`, copy `.env.example` to `.env`, set `NUXT_LOCAL_A
 
 - `/zh`, `/en`: public portfolio
 - `/zh/map`: life map with list fallback
-- `/admin`: local content studio (development only; production requires Cloudflare Access)
+- `/admin`: content studio (development accepts local admin mode; VPS preview uses HTTP Basic authentication; Cloudflare Workers deployment requires Access)
 
 Development starts with a clearly labeled visual sample gallery if there are no records. Creating real content replaces the samples. Samples never populate the database or appear in a production build.
 
@@ -20,7 +20,7 @@ Local state is stored in ignored `.data/content`. JSON export contains content/m
 
 `npm run typecheck`, `npm test`, `npm run build`, `npm run test:e2e`.
 
-See docs/deployment.md before Cloudflare deployment. Account bindings and Access configuration are required. No domain cutover is automated.
+See docs/vps-deployment.md for the live VPS preview and docs/deployment.md for the alternative Cloudflare deployment. No main-domain cutover is automated.
 
 ## Legacy content
 
