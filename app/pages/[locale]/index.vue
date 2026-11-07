@@ -17,8 +17,7 @@ onMounted(() => {
       <section class="canvas-intro"><div><p>{{ t('一个人的项目档案', 'An archive of projects') }}</p><h1>{{ t('在时间里，持续展开。', 'A life in progress.') }}</h1></div><NuxtLink :to="`${base}/work`">{{ t('浏览作品导览', 'Browse selected work') }} <span aria-hidden="true">↗</span></NuxtLink></section>
       <div class="canvas-index"><span>{{ t('项目全览', 'Project canvas') }}</span><span>{{ items.length }} {{ t('项公开记录', 'published entries') }}</span></div>
       <div v-if="error" class="empty-state" role="alert">{{ t('内容暂时无法加载，请稍后刷新。', 'Content is temporarily unavailable. Please refresh.') }}</div>
-      <ProjectCanvas v-else-if="items.length" :items="items" :branches="data?.branches || []" :locale="locale" />
-      <p v-else class="empty-state">{{ t('项目档案正在整理，稍后见。', 'The project archive is being prepared.') }}</p>
+      <ProjectCanvas v-else :items="items" :branches="data?.branches || []" :locale="locale" />
     </main>
     <SiteFooter :locale="locale" :demo="data?.demo" />
   </div>

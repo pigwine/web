@@ -21,6 +21,11 @@ const groups = computed(() => {
 
 <template>
   <div class="project-canvas" :aria-label="label('项目发展画布', 'Project canvas')">
+    <section v-if="!groups.length" class="canvas-project canvas-project-empty">
+      <div class="canvas-spine" aria-hidden="true"><span class="canvas-spine-dot" /></div>
+      <div class="canvas-project-main"><div class="canvas-project-meta"><span>{{ label('起点', 'Starting point') }}</span></div><div class="canvas-empty-copy"><h2>{{ label('项目从这里展开。', 'Projects begin here.') }}</h2><p>{{ label('项目发布后，会沿时间排列在这张画布上；进展与作品会接在所属项目下。', 'Published projects will appear here in time order, with progress and work attached to each project.') }}</p></div></div>
+      <div class="canvas-project-branches"><p class="canvas-branch-heading">{{ label('项目进程与作品', 'Progress & work') }}</p><p class="canvas-no-branches">{{ label('尚无公开记录', 'No published entries yet') }}</p></div>
+    </section>
     <section v-for="(group, index) in groups" :id="`project-${group.root.id}`" :key="group.root.id" class="canvas-project">
       <div class="canvas-spine" aria-hidden="true"><span class="canvas-spine-dot" /></div>
       <div class="canvas-project-main">

@@ -9,7 +9,7 @@ Node 22+ recommended. `npm ci`, copy `.env.example` to `.env`, set `NUXT_LOCAL_A
 - `/zh`, `/en`: project canvas homepage, grouped by project and chronological progress
 - `/zh/work`, `/en/work`: editorial work gallery
 - `/zh/map`, `/en/map`: redirects to the project canvas for older links
-- `/admin`: content studio (development accepts local admin mode; VPS preview uses HTTP Basic authentication; Cloudflare Workers deployment requires Access)
+- `/login`, `/admin`: VPS preview uses a password form and a seven-day signed session for the content studio (development accepts local admin mode; Cloudflare Workers deployment requires Access)
 
 Development starts with a clearly labeled visual sample gallery if there are no records. Creating real content replaces the samples. Samples never populate the database or appear in a production build.
 
