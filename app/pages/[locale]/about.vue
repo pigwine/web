@@ -1,2 +1,19 @@
-<script setup lang="ts">const {locale,base,t}=usePortfolio();useSeoMeta({title:'About — KaimaFind'})</script>
-<template><div><SiteHeader :locale="locale" active="about" /><main id="main" class="about-page"><p>KAIMAFIND</p><h1>{{t('生活的','A life,')}}<br><em>{{t('不同切面。','in progress.')}}</em></h1><div class="about-copy"><p>{{t('这里收纳作品，也记录探索的过程。职业、财商、表达、健康与学习，在时间里各自生长，也彼此相连。','A place for work and the explorations behind it. Career, finance, expression, wellbeing and learning unfold over time, sometimes crossing paths.')}}</p><p>{{t('从一个项目开始，沿着时间看看作品如何生长出来。','Start with a project and follow how the work unfolds over time.')}}</p><NuxtLink :to="base">{{t('进入项目全览','Explore the project canvas')}} ↗</NuxtLink><p class="about-contact"><a href="https://x.com/adoma1314" target="_blank" rel="noopener noreferrer">{{t('在 X 上找到我','Find me on X')}} ↗</a></p></div></main><SiteFooter :locale="locale" /></div></template>
+<script setup lang="ts">
+const { locale, t } = usePortfolio()
+useSeoMeta({ title: () => t('关于 — KaimaFind', 'About — KaimaFind') })
+</script>
+
+<template>
+  <div>
+    <SiteHeader :locale="locale" active="about" />
+    <main id="main" class="about-simple">
+      <h1>{{ t('关于', 'About') }}</h1>
+      <div class="about-simple-content">
+        <p>KaimaFind</p>
+        <p>{{ t('这里整理项目、作品和过程中的记录。', 'Projects, work, and notes from the process.') }}</p>
+        <a href="https://x.com/adoma1314" target="_blank" rel="noopener noreferrer">X ↗</a>
+      </div>
+    </main>
+    <SiteFooter :locale="locale" />
+  </div>
+</template>
