@@ -87,7 +87,18 @@ useHead(() => ({ htmlAttrs: { lang: locale.value }, link: [{ rel: 'canonical', h
         <span class="gallery-count">{{ String(gallery.length).padStart(2, '0') }}</span>
       </header>
       <div v-if="error" class="empty-state" role="alert">{{ t('内容暂时无法加载，请稍后刷新。', 'Content is temporarily unavailable. Please refresh.') }}</div>
-      <div v-else-if="gallery.length" class="gallery-sections">
+      <div v-else-if="gallery.length" class="gallery-presentation">
+        <section v-if="gallery.length >= 4" class="gallery-overview" :aria-label="t('影像总览', 'Image overview')">
+          <div class="gallery-overview-word" aria-hidden="true">KAIMAFIND</div>
+          <div class="gallery-overview-images">
+            <button v-for="(item, index) in gallery.slice(0, 6)" :key="`overview-${item.id}`" type="button" class="gallery-overview-image" :class="`gallery-overview-image--${index + 1}`" :aria-label="t(`放大查看：${item.translation.title}`, `View image: ${item.translation.title}`)" @click="selectedIndex = index">
+              <img v-if="item.cover" :src="item.cover" :alt="item.translation.title" :loading="index < 2 ? 'eager' : 'lazy'">
+              <span v-else>{{ item.translation.title }}</span>
+              <span class="gallery-overview-caption">{{ item.translation.title }}</span>
+            </button>
+          </div>
+        </section>
+        <div class="gallery-sections">
         <section v-for="(group, groupIndex) in galleryGroups" :key="group.branch.id" class="gallery-group" :aria-label="group.branch.name[locale]">
           <div class="gallery-group-heading">
             <div><span class="gallery-group-index">{{ String(groupIndex + 1).padStart(2, '0') }}</span><h2>{{ group.branch.name[locale] }}</h2><span class="gallery-group-count">{{ group.entries.length }}</span></div>
@@ -109,6 +120,7 @@ useHead(() => ({ htmlAttrs: { lang: locale.value }, link: [{ rel: 'canonical', h
             </button>
           </div>
         </section>
+        </div>
       </div>
       <p v-else class="gallery-empty">{{ t('尚无公开作品。', 'No published work yet.') }}</p>
     </main>
