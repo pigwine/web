@@ -6,7 +6,7 @@ The user's accepted choice supersedes the earlier blue / multicolored life-map c
 ## Visual contract
 - Paper #F3F3F0, ink #191919, secondary #666660; white only for selected functional surfaces. Color comes from actual images.
 - Self-hosted OFL Bodoni Moda for the Latin masthead and display typography. Chinese body: PingFang SC / Microsoft YaHei; system sans fallbacks. No third-party font request.
-- The homepage places a bounded, vertically sequenced project flow canvas below the introduction, followed by a readable chronological project index. Each project anchors its progress and work. The editorial work gallery is a secondary route with an oversized KAIMAFIND masthead and staggered photographs.
+- The homepage contains only the site header, a bounded project flow canvas, and the footer. The five established main branches remain visible even when empty; published projects, progress, and work connect to their branch. The editorial work gallery is reached from the header and remains a secondary route.
 - Fixed-scale readable project details. Desktop gallery does not trap scrolling. Mobile uses native vertical scrolling; maps are optional.
 - Primary text 16–18px, metadata >=12px, article line height 1.85, readable column max 720px. Small visual captions supplement, never replace, a readable detail page.
 - Keyboard focus always visible. Touch actions available without hover. Controls >=44px where practical. Reduced motion disables decorative transforms.
