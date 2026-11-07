@@ -7,12 +7,25 @@ const props=defineProps<{items:PublicItem[];branches:Branch[];locale:Locale;focu
 const emit=defineEmits<{select:[id:string];feature:[id:string]}>()
 const {fitView,zoomIn,zoomOut}=useVueFlow()
 const selected=ref(props.focus||'')
-const nodes=computed(()=>props.items.slice(0,150).map((item)=>{
- const branchIndex=Math.max(0,props.branches.findIndex(b=>b.id===item.branchId))
- const siblings=props.items.filter(p=>p.branchId===item.branchId).sort((a,b)=>a.date.localeCompare(b.date))
- return {id:item.id,type:'work',position:{x:80+siblings.findIndex(p=>p.id===item.id)*370,y:70+branchIndex*360},data:item}
-}))
-const edges=computed(()=>props.items.filter(p=>p.projectId&&props.items.some(parent=>parent.id===p.projectId)).map(p=>({id:p.projectId+'-'+p.id,source:p.projectId!,target:p.id,type:'smoothstep',style:{stroke:'#999990'},animated:false})))
+const ordered=computed(()=>{
+ const items=props.items.slice(0,150)
+ const ids=new Set(items.map(item=>item.id))
+ const roots=items.filter(item=>!item.projectId||!ids.has(item.projectId)).sort((a,b)=>a.date.localeCompare(b.date)||a.order-b.order)
+ let y=60
+ return roots.flatMap(root=>{
+  const children=items.filter(item=>item.projectId===root.id).sort((a,b)=>a.date.localeCompare(b.date)||a.order-b.order)
+  const group=[{item:root,x:70,y},...children.map((item,index)=>({item,x:420,y:y+index*320}))]
+  y+=Math.max(390,children.length*320+80)
+  return group
+ })
+})
+const nodes=computed(()=>ordered.value.map(({item,x,y})=>({id:item.id,type:'work',position:{x,y},data:item})))
+const edges=computed(()=>{
+ const roots=ordered.value.filter(({item})=>!item.projectId||!ordered.value.some(({item:parent})=>parent.id===item.projectId)).map(({item})=>item)
+ const mainline=roots.slice(1).map((item,index)=>({id:`main-${item.id}`,source:roots[index]!.id,target:item.id,type:'smoothstep',style:{stroke:'#999990'},animated:false}))
+ const children=ordered.value.filter(({item})=>item.projectId&&ordered.value.some(({item:parent})=>parent.id===item.projectId)).map(({item})=>({id:`child-${item.id}`,source:item.projectId!,target:item.id,type:'smoothstep',style:{stroke:'#999990'},animated:false}))
+ return [...mainline,...children]
+})
 watch(()=>props.items,()=>nextTick(()=>fitView({padding:.15,duration:matchMedia('(prefers-reduced-motion: reduce)').matches?0:250})))
 function init(){if(props.focus) fitView({nodes:[props.focus],maxZoom:1,duration:0});else fitView({padding:.15,maxZoom:.8})}
 </script>

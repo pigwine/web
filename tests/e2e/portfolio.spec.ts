@@ -1,7 +1,7 @@
 import {test,expect} from '@playwright/test'
 import AxeBuilder from '@axe-core/playwright'
 test('project canvas is the homepage and work gallery has its own route',async({page})=>{
- await page.goto('/zh');await page.waitForFunction(()=>!!(document.querySelector('#__nuxt') as any)?.__vue_app__);await expect(page.locator('h1')).toContainText('在时间里，持续展开。');await expect(page.getByRole('link',{name:'项目全览',exact:true})).toBeVisible();await expect(page.locator('.project-canvas')).toBeVisible()
+ await page.goto('/zh');await page.waitForFunction(()=>!!(document.querySelector('#__nuxt') as any)?.__vue_app__);await expect(page.locator('h1')).toContainText('在时间里，持续展开。');await expect(page.getByRole('link',{name:'项目全览',exact:true})).toBeVisible();await expect(page.getByRole('region',{name:'项目主线流程图'})).toBeVisible();await expect(page.locator('.project-canvas')).toBeVisible()
  const scan=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21aa']).analyze();expect(scan.violations).toEqual([])
  await page.getByRole('link',{name:'作品导览',exact:true}).click();await expect(page).toHaveURL(/\/zh\/work$/);await expect(page.locator('h1')).toContainText('KAIMAFIND')
  await page.getByRole('link',{name:'Switch to English'}).click();await expect(page.getByRole('link',{name:'Project canvas',exact:true})).toBeVisible()
@@ -20,7 +20,7 @@ test('draft, publish, unpublished edit and locale separation',async({page,reques
  const headers={Origin:'http://127.0.0.1:3100'}
  expect((await request.post('/api/admin/entry',{headers,data:{draft:childDraft,version:0}})).ok()).toBe(true)
  expect((await request.post('/api/admin/action',{headers,data:{id:childId,version:1,action:'publish',locale:'zh'}})).ok()).toBe(true)
- await page.goto('/zh');await expect(page.locator('.canvas-project').filter({hasText:title})).toContainText(childTitle)
+ await page.goto('/zh');await expect(page.locator('.canvas-project').filter({hasText:title})).toContainText(childTitle);await expect(page.getByRole('region',{name:'项目主线流程图'}).locator('.map-caption').getByText(title)).toBeVisible()
  await page.goto('/admin');await page.locator('.entry-row').filter({hasText:title}).click()
  await page.getByLabel('标题',{exact:true}).fill(title+' private change');await page.getByRole('button',{name:'保存草稿',exact:true}).click();await expect(page.getByRole('status')).toContainText('草稿已保存')
  publicData=await (await request.get('/api/public/content?locale=zh')).json();expect(publicData.items.find((p:any)=>p.id===item.id).translation.title).toBe(title)
