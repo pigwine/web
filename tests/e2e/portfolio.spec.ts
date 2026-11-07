@@ -3,6 +3,7 @@ import AxeBuilder from '@axe-core/playwright'
 test('project canvas is the homepage and work gallery has its own route',async({page})=>{
  await page.goto('/zh');await page.waitForFunction(()=>!!(document.querySelector('#__nuxt') as any)?.__vue_app__);await expect(page.getByRole('link',{name:'项目全览',exact:true})).toBeVisible();await expect(page.getByRole('region',{name:'项目主线流程图'})).toBeVisible();await expect(page.locator('.vue-flow__node-branch')).toHaveCount(5);await expect(page.locator('.canvas-intro')).toHaveCount(0);await expect(page.locator('.project-canvas')).toHaveCount(0)
  const scan=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21aa']).analyze();expect(scan.violations).toEqual([])
+ await page.setViewportSize({width:375,height:812});await expect(page.locator('.mobile-flow-branch')).toHaveCount(5);await expect(page.locator('.mobile-flow-list')).toBeVisible();expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true)
  await page.getByRole('link',{name:'作品导览',exact:true}).click();await expect(page).toHaveURL(/\/zh\/work$/);await expect(page.locator('h1')).toContainText('KAIMAFIND')
  await page.getByRole('link',{name:'Switch to English'}).click();await expect(page.getByRole('link',{name:'Project canvas',exact:true})).toBeVisible()
  await page.setViewportSize({width:375,height:812});expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true)
@@ -11,16 +12,17 @@ test('project canvas is the homepage and work gallery has its own route',async({
 test('draft, publish, unpublished edit and locale separation',async({page,request})=>{
  await page.goto('/admin');await page.waitForFunction(()=>!!(document.querySelector('#__nuxt') as any)?.__vue_app__);await page.getByRole('button',{name:'＋ 项目',exact:true}).click()
  const title='Test project '+Date.now();await page.getByLabel('标题',{exact:true}).fill(title);await page.getByLabel('简介',{exact:true}).fill('Draft content must stay private.')
+ await page.getByLabel('状态').selectOption('planned')
  await page.getByRole('button',{name:'保存草稿',exact:true}).click();await expect(page.getByRole('status')).toContainText('草稿已保存')
  let publicData=await (await request.get('/api/public/content?locale=zh')).json();expect(JSON.stringify(publicData)).not.toContain(title)
  await page.getByRole('button',{name:'发布中文',exact:true}).click();await expect(page.getByRole('status')).toContainText('当前语言已发布')
  publicData=await (await request.get('/api/public/content?locale=zh')).json();const item=publicData.items.find((p:any)=>p.translation.title===title);expect(item).toBeTruthy()
  const childId=crypto.randomUUID();const childTitle='Progress '+Date.now();const translation={title:childTitle,summary:'A dated project update.',body:{type:'doc',content:[]}}
- const childDraft={id:childId,kind:'progress',branchId:'career',relatedBranches:[],projectId:item.id,date:'2025',endDate:'',status:'ongoing',cover:'',media:[],featured:false,order:0,achievement:false,deliverable:false,translations:{zh:translation,en:translation}}
+ const childDraft={id:childId,kind:'progress',branchId:'career',relatedBranches:[],projectId:item.id,date:'2025',endDate:'',status:'completed',cover:'',media:[],featured:false,order:0,achievement:false,deliverable:false,translations:{zh:translation,en:translation}}
  const headers={Origin:'http://127.0.0.1:3100'}
  expect((await request.post('/api/admin/entry',{headers,data:{draft:childDraft,version:0}})).ok()).toBe(true)
  expect((await request.post('/api/admin/action',{headers,data:{id:childId,version:1,action:'publish',locale:'zh'}})).ok()).toBe(true)
- await page.goto('/zh');await expect(page.getByRole('region',{name:'项目主线流程图'}).locator('.map-caption').getByText(title)).toBeVisible();await expect(page.getByRole('region',{name:'项目主线流程图'}).locator('.map-caption').getByText(childTitle)).toBeVisible()
+ await page.goto('/zh');await expect(page.getByRole('region',{name:'项目主线流程图'}).locator('.map-work').filter({hasText:title})).toContainText('筹备中');await expect(page.getByRole('region',{name:'项目主线流程图'}).locator('.map-work').filter({hasText:childTitle})).toContainText('已完成')
  await page.goto('/admin');await page.locator('.entry-row').filter({hasText:title}).click()
  await page.getByLabel('标题',{exact:true}).fill(title+' private change');await page.getByRole('button',{name:'保存草稿',exact:true}).click();await expect(page.getByRole('status')).toContainText('草稿已保存')
  publicData=await (await request.get('/api/public/content?locale=zh')).json();expect(publicData.items.find((p:any)=>p.id===item.id).translation.title).toBe(title)

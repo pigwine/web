@@ -8,7 +8,7 @@ export const translationSchema = z.object({ title: z.string().max(200), summary:
 export type Translation = z.infer<typeof translationSchema>
 export const draftSchema = z.object({
   id: z.string().regex(/^[a-zA-Z0-9][a-zA-Z0-9_-]{0,79}$/), kind: z.enum(['project','progress','work']), branchId: z.string(), relatedBranches: z.array(z.string()).default([]), projectId: z.string().nullable().default(null),
-  date: z.string().regex(/^\d{4}(-\d{2}(-\d{2})?)?$/), endDate: z.string().default(''), status: z.enum(['ongoing','completed','paused']).default('ongoing'),
+  date: z.string().regex(/^\d{4}(-\d{2}(-\d{2})?)?$/), endDate: z.string().default(''), status: z.enum(['planned','ongoing','completed','paused']).default('ongoing'),
   cover: z.string().default(''), media: z.array(z.string().regex(/^\/media\/[a-f0-9-]+$/)).max(100).default([]), featured: z.boolean().default(false), order: z.number().int().default(0), achievement: z.boolean().default(false), deliverable: z.boolean().default(false),
   translations: z.object({ zh: translationSchema, en: translationSchema })
 })

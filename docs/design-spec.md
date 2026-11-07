@@ -7,6 +7,7 @@ The user's accepted choice supersedes the earlier blue / multicolored life-map c
 - Paper #F3F3F0, ink #191919, secondary #666660; white only for selected functional surfaces. Color comes from actual images.
 - Self-hosted OFL Bodoni Moda for the Latin masthead and display typography. Chinese body: PingFang SC / Microsoft YaHei; system sans fallbacks. No third-party font request.
 - The homepage contains only the site header, a bounded project flow canvas, and the footer. The five established main branches remain visible even when empty; published projects, progress, and work connect to their branch. The editorial work gallery is reached from the header and remains a secondary route.
+- Main branches use dark, generous rounded nodes; projects use light rounded cards, while progress and work use smaller cards with different corner treatments. Status is visible as text and shape, with solid, dashed, or dotted connecting lines: planned, ongoing, completed, and paused remain readable without color. On narrow screens the same relationships become a readable vertical list instead of a scaled-down diagram.
 - Fixed-scale readable project details. Desktop gallery does not trap scrolling. Mobile uses native vertical scrolling; maps are optional.
 - Primary text 16–18px, metadata >=12px, article line height 1.85, readable column max 720px. Small visual captions supplement, never replace, a readable detail page.
 - Keyboard focus always visible. Touch actions available without hover. Controls >=44px where practical. Reduced motion disables decorative transforms.
