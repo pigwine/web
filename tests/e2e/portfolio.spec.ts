@@ -31,19 +31,23 @@ test('draft, publish, unpublished edit and locale separation',async({page,reques
  await page.getByRole('button',{name:'移入回收站',exact:true}).click();await expect(page.getByRole('status')).toContainText('已移入回收站')
 })
 test('rejects cross-origin mutations',async({request})=>{const response=await request.post('/api/admin/entry',{headers:{Origin:'https://untrusted.example'},data:{}});expect(response.status()).toBe(403)})
-test('media permissions follow publication, and stale edits are rejected',async({request})=>{
+test('media permissions, canvas carousel and stale edits',async({page,request})=>{
  const headers={Origin:'http://127.0.0.1:3100'}
  const bytes=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+j2ioAAAAASUVORK5CYII=','base64')
  const upload=await request.post('/api/admin/upload',{headers,multipart:{file:{name:'pixel.png',mimeType:'image/png',buffer:bytes}}});expect(upload.ok()).toBe(true)
  const media=await upload.json()
+ const secondUpload=await request.post('/api/admin/upload',{headers,multipart:{file:{name:'second.png',mimeType:'image/png',buffer:bytes}}});expect(secondUpload.ok()).toBe(true)
+ const secondMedia=await secondUpload.json()
 
  const id=crypto.randomUUID();const translation={title:'Media test',summary:'',body:{type:'doc',content:[]}}
- const draft={id,kind:'project',branchId:'career',relatedBranches:[],projectId:null,date:'2024',endDate:'',status:'ongoing',cover:media.url,media:[media.url],featured:false,order:0,achievement:false,deliverable:false,translations:{zh:translation,en:translation}}
+ const draft={id,kind:'project',branchId:'career',relatedBranches:[],projectId:null,date:'2024',endDate:'',status:'ongoing',cover:media.url,media:[media.url,secondMedia.url],featured:false,order:0,achievement:false,deliverable:false,translations:{zh:translation,en:translation}}
  const saved=await request.post('/api/admin/entry',{headers,data:{draft,version:0}});expect(saved.ok()).toBe(true)
  const stale=await request.post('/api/admin/entry',{headers,data:{draft,version:0}});expect(stale.status()).toBe(409)
  const published=await request.post('/api/admin/action',{headers,data:{id,version:1,action:'publish',locale:'zh'}});expect(published.ok()).toBe(true)
  const publicResponse=await request.get(media.url);expect(publicResponse.ok()).toBe(true)
  expect(publicResponse.headers()['cache-control']).toContain('no-store')
+ await page.goto('/zh');const card=page.locator('.vue-flow__node-work').filter({hasText:'Media test'});await card.locator('.map-work').click();await expect(card.locator('.map-work')).toHaveClass(/focused/);await expect(page).toHaveURL(/\/zh$/);await card.getByRole('button',{name:'下一张图片'}).click();await expect(card.locator('.map-photo-frame img')).toHaveAttribute('src',secondMedia.url)
+ await page.setViewportSize({width:375,height:812});const mobileCard=page.locator('.mobile-flow-card').filter({hasText:'Media test'});await expect(mobileCard.locator('.mobile-flow-photo img')).toHaveAttribute('src',secondMedia.url);await mobileCard.getByRole('button',{name:'上一张图片'}).click();await expect(mobileCard.locator('.mobile-flow-photo img')).toHaveAttribute('src',media.url)
  await request.post('/api/admin/action',{headers,data:{id,version:2,action:'unpublish',locale:'zh'}})
  await request.post('/api/admin/action',{headers,data:{id,version:3,action:'delete',locale:'zh'}})
 })

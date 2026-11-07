@@ -11,7 +11,7 @@ The user's accepted choice supersedes the earlier blue / multicolored life-map c
 - Fixed-scale readable project details. Desktop gallery does not trap scrolling. Mobile uses native vertical scrolling; maps are optional.
 - Primary text 16–18px, metadata >=12px, article line height 1.85, readable column max 720px. Small visual captions supplement, never replace, a readable detail page.
 - Keyboard focus always visible. Touch actions available without hover. Controls >=44px where practical. Reduced motion disables decorative transforms.
-- Only meaningful transitions: reveal, focus, expand. No custom cursor, scroll hijacking, autoplay slideshows, floating elements, flashing lines or particle backgrounds.
+- Motion follows interaction: an ongoing connector may drift slowly, a card border may respond to pointer position, and a selected node may grow slightly. The reader advances images manually. Reduced-motion preference disables these effects. No custom cursor, scroll hijacking, autoplay slideshows, flashing lines or particle backgrounds.
 
 ## Content and review
 Development-only sample gallery is labeled in the footer and project page. Unsplash preview images demonstrate layout, not authorship. Production empty state contains no demo portfolio.
