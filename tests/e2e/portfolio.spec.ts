@@ -57,11 +57,7 @@ test('gallery main lines support wheel browsing and focused album selection',asy
  await page.goto('/zh/work')
  if (!await page.locator('.gallery-study-note').count()) return
  await expect(page.locator('.gallery-group')).toHaveCount(5)
- await expect(page.locator('.gallery-overview-image')).toHaveCount(6)
- const word=page.locator('.gallery-overview-word')
- const before=await word.evaluate(element=>element.getBoundingClientRect().top)
- await page.evaluate(()=>scrollTo(0,450))
- expect(Math.abs((await word.evaluate(element=>element.getBoundingClientRect().top))-before)).toBeLessThan(2)
+ await expect(page.locator('.gallery-overview')).toHaveCount(0)
  const track=page.locator('.gallery-track').first()
  await track.hover()
  await page.mouse.wheel(0,240)

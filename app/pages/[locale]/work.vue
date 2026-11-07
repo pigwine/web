@@ -16,10 +16,17 @@ const gallery = computed(() => {
     ['health', 'motion', '运动片段', 'Motion study'],
     ['learning', 'mountain', '风景片段', 'Landscape study']
   ]
-  return [...samples, ...secondFrames.map(([branchId, image, zh, en], index) => ({
-    ...samples[index % samples.length]!, id: `gallery-study-${branchId}`, branchId: branchId!,
-    cover: `/preview/${image}.jpg`, order: samples.length + index,
-    translation: { ...samples[index % samples.length]!.translation, title: locale.value === 'zh' ? zh! : en! }
+  const studyFrames = [
+    ...secondFrames.map(([branchId, image, zh, en]) => ({ branchId: branchId!, image: image!, zh: zh!, en: en! })),
+    ...['career', 'finance', 'media', 'health', 'learning'].flatMap((branchId, index) => [
+      { branchId, image: ['portrait', 'flowers', 'city', 'architecture', 'motion'][index]!, zh: '影像片段 02', en: 'Image study 02' },
+      { branchId, image: ['mountain', 'motion', 'architecture', 'portrait', 'city'][index]!, zh: '影像片段 03', en: 'Image study 03' }
+    ])
+  ]
+  return [...samples, ...studyFrames.map((frame, index) => ({
+    ...samples[index % samples.length]!, id: `gallery-study-${frame.branchId}-${index}`, branchId: frame.branchId,
+    cover: `/preview/${frame.image}.jpg`, order: samples.length + index,
+    translation: { ...samples[index % samples.length]!.translation, title: locale.value === 'zh' ? frame.zh : frame.en }
   }))]
 })
 const galleryGroups = computed(() => {
@@ -88,16 +95,6 @@ useHead(() => ({ htmlAttrs: { lang: locale.value }, link: [{ rel: 'canonical', h
       </header>
       <div v-if="error" class="empty-state" role="alert">{{ t('内容暂时无法加载，请稍后刷新。', 'Content is temporarily unavailable. Please refresh.') }}</div>
       <div v-else-if="gallery.length" class="gallery-presentation">
-        <section v-if="gallery.length >= 4" class="gallery-overview" :aria-label="t('影像总览', 'Image overview')">
-          <div class="gallery-overview-word" aria-hidden="true">KAIMAFIND</div>
-          <div class="gallery-overview-images">
-            <button v-for="(item, index) in gallery.slice(0, 6)" :key="`overview-${item.id}`" type="button" class="gallery-overview-image" :class="`gallery-overview-image--${index + 1}`" :aria-label="t(`放大查看：${item.translation.title}`, `View image: ${item.translation.title}`)" @click="selectedIndex = index">
-              <img v-if="item.cover" :src="item.cover" :alt="item.translation.title" :loading="index < 2 ? 'eager' : 'lazy'">
-              <span v-else>{{ item.translation.title }}</span>
-              <span class="gallery-overview-caption">{{ item.translation.title }}</span>
-            </button>
-          </div>
-        </section>
         <div class="gallery-sections">
         <section v-for="(group, groupIndex) in galleryGroups" :key="group.branch.id" class="gallery-group" :aria-label="group.branch.name[locale]">
           <div class="gallery-group-heading">
