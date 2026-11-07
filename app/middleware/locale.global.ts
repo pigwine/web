@@ -1,0 +1,1 @@
+export default defineNuxtRouteMiddleware(to=>{if(to.params.locale&&!['zh','en'].includes(String(to.params.locale)))return abortNavigation(createError({statusCode:404,statusMessage:'Unknown language'}))})

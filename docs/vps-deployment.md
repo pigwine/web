@@ -1,0 +1,15 @@
+# VPS preview deployment
+
+The `ocr-vps` SSH alias points to an Ubuntu 24.04 host. Its port 443 is occupied by an existing Xray service. KaimaFind runs separately on `127.0.0.1:3101` as the unprivileged `kaimafind` user. A locally managed Cloudflare Tunnel routes `preview.kaimafind.com` to that loopback port without opening a new inbound port or modifying Xray. The apex domain remains on the original Cloudflare Pages project.
+
+Run `npm run build:vps` and `scripts/deploy-vps.sh` from this repository to send the built `.output` to a new release directory and atomically update the service symlink. The pinned Node runtime lives in `/opt/node/current`. Content and media are stored under `/var/lib/kaimafind/data`, outside releases, so deployments do not replace uploaded work. The service reads its production-only settings from `/etc/kaimafind/preview.env`. Never put that file or the administrator password in Git.
+
+The deploy script restores the previous release if the local HTTP health check fails. Run `scripts/backup-vps.sh` to pull a private archive of content and media to `~/.local/share/kaimafind/backups`; set `KAIMAFIND_BACKUP_DIR` to choose another destination. Keep a separate off-device copy of these archives. To restore, stop `kaimafind-preview`, extract the archive into `/var/lib/kaimafind` on the VPS, correct ownership to `kaimafind:kaimafind`, and restart the service.
+
+The studio at `/admin` redirects visitors without a session to `/login`. The password form verifies against the salted PBKDF2 hash in the environment file and creates a signed, HTTP-only, seven-day session cookie. HTTP Basic remains available for direct API use. Access to `/admin`, `/api/admin/*` and unpublished media is checked by the application. Use HTTPS through the Cloudflare Tunnel; do not expose the loopback Node port publicly.
+
+Before using this as production, add the owner's real projects and photographs, verify backups and off-server copies, and review the existing route migration. The VPS preview is independent of the Cloudflare D1 preview database, which can be left unused.
+
+The public preview is https://preview.kaimafind.com/zh. Its tunnel ID is `2c35453a-f2ee-4b79-9e9e-6934496f8419`; `cloudflared.service` and `kaimafind-preview.service` are enabled on the VPS. Tunnel credentials are stored only at `/etc/cloudflared`, with mode `0600`. The studio is at `/admin`; its password is stored locally at `~/.config/kaimafind/preview-admin-password`.
+
+If the public route is unavailable, access the deployed preview from the owner's computer with `ssh -N -L 127.0.0.1:3101:127.0.0.1:3101 ocr-vps` and open `http://127.0.0.1:3101/zh`.

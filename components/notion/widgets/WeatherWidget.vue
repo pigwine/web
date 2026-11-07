@@ -103,7 +103,7 @@ const emit = defineEmits(['mounted'])
 // 和风天气 API 配置
 const WEATHER_API_BASE = 'https://devapi.qweather.com/v7'
 const GEO_API_BASE = 'https://geoapi.qweather.com/v2'
-const WEATHER_API_KEY = '1a1f7341b03745bd87567a091a82d7e8'
+const WEATHER_API_KEY = '' // Configure a server-side weather integration before reuse.
 
 // 状态管理
 const isLoading = ref(true)

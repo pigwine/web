@@ -1,0 +1,75 @@
+import {test,expect} from '@playwright/test'
+import AxeBuilder from '@axe-core/playwright'
+test('project canvas is the homepage and work gallery has its own route',async({page})=>{
+ await page.goto('/zh');await page.waitForFunction(()=>!!(document.querySelector('#__nuxt') as any)?.__vue_app__);await expect(page.getByRole('link',{name:'项目全览',exact:true})).toBeVisible();await expect(page.getByRole('region',{name:'项目主线流程图'})).toBeVisible();await expect(page.locator('.vue-flow__node-branch')).toHaveCount(5);await expect(page.locator('.canvas-intro')).toHaveCount(0);await expect(page.locator('.project-canvas')).toHaveCount(0)
+ const scan=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21aa']).analyze();expect(scan.violations).toEqual([])
+ await page.setViewportSize({width:375,height:812});await expect(page.locator('.mobile-flow-branch')).toHaveCount(5);await expect(page.locator('.mobile-flow-list')).toBeVisible();expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true)
+ await page.getByRole('link',{name:'作品导览',exact:true}).click();await expect(page).toHaveURL(/\/zh\/work$/);await expect(page.locator('h1')).toHaveText('作品导览');await expect(page.getByText('返回项目全览')).toHaveCount(0)
+ await page.getByRole('link',{name:'关于',exact:true}).click();await expect(page.locator('h1')).toHaveText('关于');await expect(page.getByText('进入项目全览')).toHaveCount(0)
+ await page.getByRole('link',{name:'Switch to English'}).click();await expect(page.getByRole('link',{name:'Project canvas',exact:true})).toBeVisible()
+ await page.setViewportSize({width:375,height:812});expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true)
+ await page.screenshot({path:'test-results/home-mobile.png',fullPage:true})
+})
+test('draft, publish, unpublished edit and locale separation',async({page,request})=>{
+ await page.goto('/admin');await page.waitForFunction(()=>!!(document.querySelector('#__nuxt') as any)?.__vue_app__);await page.getByRole('button',{name:'＋ 项目',exact:true}).click()
+ const title='Test project '+Date.now();await page.getByLabel('标题',{exact:true}).fill(title);await page.getByLabel('简介',{exact:true}).fill('Draft content must stay private.')
+ await page.getByLabel('状态').selectOption('planned')
+ await page.getByRole('button',{name:'保存草稿',exact:true}).click();await expect(page.getByRole('status')).toContainText('草稿已保存')
+ let publicData=await (await request.get('/api/public/content?locale=zh')).json();expect(JSON.stringify(publicData)).not.toContain(title)
+ await page.getByRole('button',{name:'发布中文',exact:true}).click();await expect(page.getByRole('status')).toContainText('当前语言已发布')
+ publicData=await (await request.get('/api/public/content?locale=zh')).json();const item=publicData.items.find((p:any)=>p.translation.title===title);expect(item).toBeTruthy()
+ const childId=crypto.randomUUID();const childTitle='Progress '+Date.now();const translation={title:childTitle,summary:'A dated project update.',body:{type:'doc',content:[]}}
+ const childDraft={id:childId,kind:'work',branchId:'career',relatedBranches:[],projectId:item.id,date:'2025',endDate:'',status:'completed',cover:'',media:[],featured:false,order:0,achievement:false,deliverable:false,translations:{zh:translation,en:translation}}
+ const headers={Origin:'http://127.0.0.1:3100'}
+ expect((await request.post('/api/admin/entry',{headers,data:{draft:childDraft,version:0}})).ok()).toBe(true)
+ expect((await request.post('/api/admin/action',{headers,data:{id:childId,version:1,action:'publish',locale:'zh'}})).ok()).toBe(true)
+ await page.goto('/zh');await expect(page.getByRole('region',{name:'项目主线流程图'}).locator('.map-work').filter({hasText:title})).toContainText('筹备中');await expect(page.getByRole('region',{name:'项目主线流程图'}).locator('.map-work').filter({hasText:childTitle})).toContainText('已完成')
+ await page.goto('/zh/work');await expect(page.locator('.gallery-entry').filter({hasText:childTitle})).toBeVisible()
+ await page.goto('/admin');await page.locator('.entry-row').filter({hasText:title}).click()
+ await page.getByLabel('标题',{exact:true}).fill(title+' private change');await page.getByRole('button',{name:'保存草稿',exact:true}).click();await expect(page.getByRole('status')).toContainText('草稿已保存')
+ publicData=await (await request.get('/api/public/content?locale=zh')).json();expect(publicData.items.find((p:any)=>p.id===item.id).translation.title).toBe(title)
+ const english=await (await request.get('/api/public/content?locale=en')).json();expect(english.items.some((p:any)=>p.id===item.id)).toBe(false)
+ await request.post('/api/admin/action',{headers,data:{id:childId,version:2,action:'delete',locale:'zh'}})
+ await page.getByRole('button',{name:'移入回收站',exact:true}).click();await expect(page.getByRole('status')).toContainText('已移入回收站')
+})
+test('rejects cross-origin mutations',async({request})=>{const response=await request.post('/api/admin/entry',{headers:{Origin:'https://untrusted.example'},data:{}});expect(response.status()).toBe(403)})
+test('media permissions, canvas carousel and stale edits',async({page,request})=>{
+ const headers={Origin:'http://127.0.0.1:3100'}
+ const bytes=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+j2ioAAAAASUVORK5CYII=','base64')
+ const upload=await request.post('/api/admin/upload',{headers,multipart:{file:{name:'pixel.png',mimeType:'image/png',buffer:bytes}}});expect(upload.ok()).toBe(true)
+ const media=await upload.json()
+ const secondUpload=await request.post('/api/admin/upload',{headers,multipart:{file:{name:'second.png',mimeType:'image/png',buffer:bytes}}});expect(secondUpload.ok()).toBe(true)
+ const secondMedia=await secondUpload.json()
+
+ const id=crypto.randomUUID();const translation={title:'Media test',summary:'',body:{type:'doc',content:[]}}
+ const draft={id,kind:'project',branchId:'career',relatedBranches:[],projectId:null,date:'2024',endDate:'',status:'ongoing',cover:media.url,media:[media.url,secondMedia.url],featured:false,order:0,achievement:false,deliverable:false,translations:{zh:translation,en:translation}}
+ const saved=await request.post('/api/admin/entry',{headers,data:{draft,version:0}});expect(saved.ok()).toBe(true)
+ const stale=await request.post('/api/admin/entry',{headers,data:{draft,version:0}});expect(stale.status()).toBe(409)
+ const published=await request.post('/api/admin/action',{headers,data:{id,version:1,action:'publish',locale:'zh'}});expect(published.ok()).toBe(true)
+ const publicResponse=await request.get(media.url);expect(publicResponse.ok()).toBe(true)
+ expect(publicResponse.headers()['cache-control']).toContain('no-store')
+ await page.goto('/zh');const card=page.locator('.vue-flow__node-work').filter({hasText:'Media test'});await card.locator('.map-work').click();await expect(card.locator('.map-work')).toHaveClass(/focused/);await expect(page).toHaveURL(/\/zh$/);await card.getByRole('button',{name:'下一张图片'}).click();await expect(card.locator('.map-photo-frame img')).toHaveAttribute('src',secondMedia.url)
+ await page.setViewportSize({width:375,height:812});const mobileCard=page.locator('.mobile-flow-card').filter({hasText:'Media test'});await expect(mobileCard.locator('.mobile-flow-photo img')).toHaveAttribute('src',secondMedia.url);await mobileCard.getByRole('button',{name:'上一张图片'}).click();await expect(mobileCard.locator('.mobile-flow-photo img')).toHaveAttribute('src',media.url)
+ await request.post('/api/admin/action',{headers,data:{id,version:2,action:'unpublish',locale:'zh'}})
+ await request.post('/api/admin/action',{headers,data:{id,version:3,action:'delete',locale:'zh'}})
+})
+test('gallery main lines support wheel browsing and focused album selection',async({page})=>{
+ await page.goto('/zh/work')
+ if (!await page.locator('.gallery-study-note').count()) return
+ await expect(page.locator('.gallery-group')).toHaveCount(5)
+ await expect(page.locator('.gallery-overview')).toHaveCount(0)
+ const track=page.locator('.gallery-track').first()
+ await track.hover()
+ await page.mouse.wheel(0,240)
+ await expect.poll(()=>track.evaluate(element=>element.scrollLeft)).toBeGreaterThan(0)
+ const first=track.locator('.gallery-entry').first()
+ const second=track.locator('.gallery-entry').nth(1)
+ await first.hover()
+ await expect.poll(()=>second.evaluate(element=>getComputedStyle(element).opacity)).not.toBe('1')
+ await first.click()
+ await expect(page.getByRole('dialog')).toBeVisible()
+ await page.keyboard.press('Escape')
+ await expect(page.getByRole('dialog')).toHaveCount(0)
+ await page.setViewportSize({width:320,height:740})
+ expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true)
+})
