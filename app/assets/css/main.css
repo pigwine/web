@@ -83,3 +83,33 @@
 .about-simple-content .about-social-icon{margin-top:28px}
 }
 @media(prefers-reduced-motion:reduce){.gallery-entry{animation:none}.gallery-image img,.gallery-open{transition:none}}
+/* Gallery rhythm: one portrait anchor, quieter landscape companions, then alternating crops. */
+.gallery-wall{column-gap:2.5%;row-gap:72px;align-items:start}
+.gallery-entry:nth-child(6n+1){grid-column:2/8;margin-top:0}
+.gallery-entry:nth-child(6n+2){grid-column:9/13;margin-top:260px}
+.gallery-entry:nth-child(6n+3){grid-column:1/7;margin-top:0}
+.gallery-entry:nth-child(6n+4){grid-column:8/13;margin-top:175px}
+.gallery-entry:nth-child(6n+5){grid-column:2/6;margin-top:0}
+.gallery-entry:nth-child(6n){grid-column:7/13;margin-top:160px}
+.gallery-image{border-radius:18px;isolation:isolate}
+.gallery-entry:nth-child(6n+1) .gallery-image{aspect-ratio:4/5}
+.gallery-entry:nth-child(6n+2) .gallery-image{aspect-ratio:3/2}
+.gallery-entry:nth-child(6n+3) .gallery-image{aspect-ratio:3/2}
+.gallery-entry:nth-child(6n+4) .gallery-image{aspect-ratio:4/5}
+.gallery-entry:nth-child(6n+5) .gallery-image{aspect-ratio:4/5}
+.gallery-entry:nth-child(6n) .gallery-image{aspect-ratio:3/2}
+.gallery-entry:nth-child(6n+2) .gallery-image img,.gallery-entry:nth-child(6n+3) .gallery-image img,.gallery-entry:nth-child(6n) .gallery-image img{object-position:center}
+.gallery-entry figcaption{padding:12px 4px 0}
+.gallery-viewer-stage img,.gallery-viewer-type{border-radius:16px}
+@media(max-width:900px){.gallery-entry:nth-child(6n+2){margin-top:170px}.gallery-entry:nth-child(6n+4),.gallery-entry:nth-child(6n){margin-top:110px}}
+@media(max-width:600px){
+.gallery-wall{row-gap:42px}
+.gallery-entry:nth-child(n){margin-top:0}
+.gallery-entry:nth-child(6n+1){grid-column:1/7}
+.gallery-entry:nth-child(even){grid-column:2/7}
+.gallery-entry:nth-child(3n){grid-column:1/6}
+.gallery-entry:nth-child(n) .gallery-image{aspect-ratio:4/5;border-radius:14px}
+.gallery-entry:nth-child(3n+2) .gallery-image{aspect-ratio:3/2}
+.gallery-entry figcaption{padding:9px 2px 0}
+.gallery-viewer-stage img,.gallery-viewer-type{border-radius:10px}
+}
